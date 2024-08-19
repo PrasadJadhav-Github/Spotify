@@ -4,13 +4,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.gadre.spotify.Interface.DisplayDataInterface;
 import com.gadre.spotify.ModelClass.AlbumData;
 import com.gadre.spotify.ModelClass.AlbumJSON;
 import com.gadre.spotify.ModelClass.Artists;
+import com.gadre.spotify.ModelClass.CoverArt;
 import com.gadre.spotify.ModelClass.ImageSouce;
 import com.gadre.spotify.ModelClass.Item;
 import com.gadre.spotify.OtherClasses.DisplaySpotifyData;
+import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityMainBinding;
 
 import java.util.List;
@@ -58,13 +61,26 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
                         }
 
 
+                        List<ImageSouce> imageSouceList = albumData.getCoverArt().getImageSouces();
+                        if (imageSouceList != null && !imageSouceList.isEmpty()) {
+                            ImageSouce firstImageSource = imageSouceList.get(0);
+                            String imageUrl = firstImageSource.getUrl();
+                            if (imageUrl != null && !imageUrl.isEmpty()) {
+                                Glide.with(this)
+                                        .load(imageUrl)
+                                        .placeholder(R.mipmap.ic_launcher)
+                                        .error(R.mipmap.ic_launcher)
+                                        .into(binding.imageViewCoverArt);
+                            }
+
+                        }
                     }
                 }
+                binding.textViewAlbumNames.setText(albumAndArtistDetails.toString().trim());
+            } else {
+                binding.textViewAlbumNames.setText("No data available.");
             }
-            binding.textViewAlbumNames.setText(albumAndArtistDetails.toString().trim());
-        } else {
-            binding.textViewAlbumNames.setText("No data available.");
         }
-    }
 
+    }
 }

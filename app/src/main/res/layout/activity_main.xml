@@ -9,31 +9,25 @@
 
     <ImageView
         android:id="@+id/imageViewCoverArt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:contentDescription="Album Cover Art"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewAlbumNames"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Details will display here"/>
-<!--    <TextView-->
-<!--        android:id="@+id/textViewUri"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content" />-->
-<!--    <TextView-->
-<!--        android:id="@+id/textViewArtists"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        />-->
-<!--    <TextView-->
-<!--        android:id="@+id/textViewCoverart"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--  />-->
-
+        android:text="Details will display here"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCoverArt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
