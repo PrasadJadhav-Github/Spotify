@@ -25,7 +25,7 @@ public class DisplaySpotifyData implements FetchDataInterface {
 
     @Override
     public void fetchDataFromSpotifyApi() {
-        Call<AlbumJSON> call = apiServices.spotifyData("summer","multi",0,10,5);
+        Call<AlbumJSON> call = apiServices.spotifyData("summer","multi",0,9,5);
         call.enqueue(new Callback<AlbumJSON>() {
             @Override
             public void onResponse(Call<AlbumJSON> call, Response<AlbumJSON> response) {
