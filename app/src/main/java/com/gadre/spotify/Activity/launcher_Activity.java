@@ -1,5 +1,6 @@
 package com.gadre.spotify.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -21,5 +22,10 @@ public class launcher_Activity extends AppCompatActivity {
         binding =ActivityLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.imageViewSpotifyList.setOnClickListener(v -> {
+            Intent intent = new Intent(launcher_Activity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
-}
+
+    }
