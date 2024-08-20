@@ -7,27 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageViewCoverArt"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Album Cover Art"
-        android:scaleType="fitCenter"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewCoverArt"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:contentDescription="Album Cover Art"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        app:layout_constraintDimensionRatio="1:1"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.466"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
-        android:id="@+id/textViewAlbumNames"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Details will display here"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCoverArt" />
+<!--    <TextView-->
+<!--        android:id="@+id/textViewAlbumNames"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Details will display here"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageViewCoverArt" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
