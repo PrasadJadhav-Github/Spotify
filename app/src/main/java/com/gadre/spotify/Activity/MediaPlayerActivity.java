@@ -7,14 +7,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
+import com.gadre.spotify.OtherClasses.SongsUtil;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityMediaPlayerBinding;
+
+import java.util.List;
 
 public class MediaPlayerActivity extends AppCompatActivity {
 
     private ActivityMediaPlayerBinding binding;
     private MediaPlayer mediaPlayer;
 
+    private List<MusicPlayerDataClass> songList;
+    private int currentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,28 +28,36 @@ public class MediaPlayerActivity extends AppCompatActivity {
         binding = ActivityMediaPlayerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Get the list of songs from SongsUtil
+        songList = SongsUtil.getRawSongList(this);
+        currentIndex = getIntent().getIntExtra("SONG_INDEX", 0);
 
-        int songId = getIntent().getIntExtra("SONG_ID", -1);
-        String songName = getIntent().getStringExtra("SONG_NAME");
+        if (currentIndex >= 0 && currentIndex < songList.size()) {
+            playCurrentSong();
+            // Set up button
+            setUpButtons();
+        }
+    }
 
-        if (songId != -1) {
-            mediaPlayer = MediaPlayer.create(this, songId);
+    private void playCurrentSong() {
+        if (currentIndex >= 0 && currentIndex < songList.size()) {
             if (mediaPlayer != null) {
-                setUpButtons();
-                mediaPlayer.start();
-
-                Toast.makeText(this, songName != null ? "Playing: " + songName : "No song selected", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "No song selected", Toast.LENGTH_SHORT).show();
+                mediaPlayer.release();
             }
 
-
+            MusicPlayerDataClass currentSong = songList.get(currentIndex);
+            mediaPlayer = MediaPlayer.create(this, currentSong.getId());
+            if (mediaPlayer != null) {
+                mediaPlayer.start();
+                String songName = currentSong.getName();
+                binding.songTitleTextView.setText(songName);
+            }
         }
     }
 
     private void setUpButtons() {
         ImageButton playPauseButton = binding.playPauseButton;
-        ImageButton previousButton =binding.previousButton;
+        ImageButton previousButton = binding.previousButton;
         ImageButton nextButton = binding.nextButton;
 
         playPauseButton.setOnClickListener(v -> {
@@ -57,14 +71,18 @@ public class MediaPlayerActivity extends AppCompatActivity {
         });
 
         previousButton.setOnClickListener(view -> {
-
+            if (currentIndex > 0) {
+                currentIndex--;
+                playCurrentSong();
+            }
         });
 
         nextButton.setOnClickListener(view -> {
-
+            if (currentIndex < songList.size() - 1) {
+                currentIndex++;
+                playCurrentSong();
+            }
         });
-
-
     }
 
     @Override
@@ -83,4 +101,3 @@ public class MediaPlayerActivity extends AppCompatActivity {
         }
     }
 }
-
