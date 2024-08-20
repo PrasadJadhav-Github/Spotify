@@ -14,6 +14,7 @@
         android:layout_height="0dp"
         android:contentDescription="Album Art"
         android:scaleType="centerCrop"
+        android:src="@drawable/musical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/songTitleTextView"
         app:layout_constraintStart_toStartOf="parent"
