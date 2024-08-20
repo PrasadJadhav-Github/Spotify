@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.launcher_Activity">
+    tools:context=".Activity.LauncherActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/textViewSpotifyName"
         android:layout_width="82dp"
-        android:layout_height="22dp"
+        android:layout_height="24dp"
         android:layout_marginTop="8dp"
         android:text="Song List"
         android:textColor="@android:color/black"
@@ -50,7 +50,7 @@
         android:id="@+id/imageViewPlaySong"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/music"
         android:textColor="@android:color/white"
@@ -60,7 +60,7 @@
     <TextView
         android:id="@+id/textViewPlaySong"
         android:layout_width="82dp"
-        android:layout_height="22dp"
+        android:layout_height="24dp"
         android:layout_marginTop="8dp"
         android:text="Play Song"
         android:textColor="@android:color/black"
