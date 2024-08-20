@@ -43,6 +43,8 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
     private void setUpButtons() {
         ImageButton playPauseButton = binding.playPauseButton;
+        ImageButton previousButton =binding.previousButton;
+        ImageButton nextButton = binding.nextButton;
 
         playPauseButton.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
@@ -53,6 +55,32 @@ public class MediaPlayerActivity extends AppCompatActivity {
                 playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
             }
         });
+
+        previousButton.setOnClickListener(view -> {
+
+        });
+
+        nextButton.setOnClickListener(view -> {
+
+        });
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
     }
 }
 
