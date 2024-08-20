@@ -1,6 +1,7 @@
 package com.gadre.spotify.Activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,10 +55,19 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
             }
             albumAdapter = new AlbumApapter(albumDataList);
             binding.recyclerView.setAdapter(albumAdapter);
+
+            //set binding to hide the text message when data is display
+            binding.textViewPlaceholder.setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
         } else {
             // no data is available
             albumAdapter = new AlbumApapter(new ArrayList<>());
             binding.recyclerView.setAdapter(albumAdapter);
+
+            //set binding if no data is available
+            binding.textViewPlaceholder.setText("No data available.");
+            binding.textViewPlaceholder.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
         }
     }
 }

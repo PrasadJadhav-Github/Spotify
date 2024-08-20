@@ -24,26 +24,48 @@
     <ImageView
         android:id="@+id/imageViewSpotifyList"
         android:layout_width="78dp"
-        android:layout_marginStart="15dp"
         android:layout_height="78dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/spotify"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+
     <TextView
         android:id="@+id/textViewSpotifyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="82dp"
+        android:layout_height="22dp"
         android:layout_marginTop="8dp"
         android:text="Song List"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageViewSpotifyList"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewSpotifyList"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSpotifyList"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSpotifyList" />
+
+    <ImageView
+        android:id="@+id/imageViewPlaySong"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/music"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/imageViewSpotifyList"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textViewPlaySong"
+        android:layout_width="82dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:text="Play Song"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySong"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySong"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlaySong" />
 </androidx.constraintlayout.widget.ConstraintLayout>
