@@ -29,10 +29,12 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //initialize recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        albumAdapter = new AlbumApapter(new ArrayList<>()); // Start with an empty list
+        albumAdapter = new AlbumApapter(new ArrayList<>());
         binding.recyclerView.setAdapter(albumAdapter);
 
+        //instance of DisplaySpotifyData holds api data
         DisplaySpotifyData displaySpotifyData = new DisplaySpotifyData(this);
         displaySpotifyData.fetchDataFromSpotifyApi();
     }
@@ -50,11 +52,10 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
                     }
                 }
             }
-
             albumAdapter = new AlbumApapter(albumDataList);
             binding.recyclerView.setAdapter(albumAdapter);
         } else {
-            // Handle the case where no data is available
+            // no data is available
             albumAdapter = new AlbumApapter(new ArrayList<>());
             binding.recyclerView.setAdapter(albumAdapter);
         }

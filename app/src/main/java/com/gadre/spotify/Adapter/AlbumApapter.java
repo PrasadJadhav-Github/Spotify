@@ -36,9 +36,9 @@ public class AlbumApapter extends RecyclerView.Adapter<AlbumApapter.AlbumViewHol
     @Override
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         AlbumData albumData = albumList.get(position);
-
         holder.textViewAlbumName.setText(albumData.getName());
 
+        //function to load image using glide
         if (albumData.getCoverArt() != null) {
             List<ImageSouce> imageSouceList = albumData.getCoverArt().getImageSouces();
             if (imageSouceList != null && !imageSouceList.isEmpty()) {
@@ -53,6 +53,7 @@ public class AlbumApapter extends RecyclerView.Adapter<AlbumApapter.AlbumViewHol
             }
         }
 
+        //display artis name and song name using string builder
         if (albumData.getArtistsList() != null && !albumData.getArtistsList().getArtists().isEmpty()) {
             StringBuilder artistNames = new StringBuilder();
             for (Artists artist : albumData.getArtistsList().getArtists()) {
