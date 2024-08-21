@@ -1,10 +1,15 @@
 package com.gadre.spotify.Activity;
 
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -13,6 +18,7 @@ import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityPlayMusicFromExternalDeviceBinding;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PlayMusicFromExternalDevice extends AppCompatActivity {
@@ -31,30 +37,42 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         externalsongList = mediaStoreManager.getAudioFiles();
 
         currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
-        // Uri songUri = getIntent().getParcelableExtra("SONG_URI");
+       // Uri songUri = getIntent().getParcelableExtra("SONG_URI");
         //String songName = getIntent().getStringExtra("SONG_NAME");
 
+        mediaPlayer = new MediaPlayer();
+
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
-            playCurrentSong();
+            try {
+                playCurrentSong();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             setUpButtons();
         }
 
         //     binding.songTitleTextView.setText(songName);
-        // mediaPlayer = MediaPlayer.create(this, songUri);
         //mediaPlayer.start();
         //setUpButtons();
     }
 
 
-    private void playCurrentSong() {
+    private void playCurrentSong() throws IOException {
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
-            if (mediaPlayer != null) {
-                mediaPlayer.release();
-            }
+//            if (mediaPlayer != null) {
+//                //mediaPlayer.release();
+//            }
 
             AudioFileDataClass currentSong = externalsongList.get(currentSongIndex);
-            mediaPlayer = MediaPlayer.create(this, currentSong.getUri());
+//            mediaPlayer = MediaPlayer.create(this, currentSong.getUri());
             if (mediaPlayer != null) {
+                mediaPlayer.reset();
+                mediaPlayer.setAudioAttributes( new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build());
+                mediaPlayer.setDataSource(this,currentSong.getUri());
+                mediaPlayer.prepare();
                 mediaPlayer.start();
                 String songName = currentSong.getName();
                 binding.songTitleTextView.setText(songName);
@@ -86,7 +104,11 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             if (externalsongList != null && !externalsongList.isEmpty()) {
                 if (currentSongIndex < externalsongList.size() - 1) {
                     currentSongIndex++;
-                    playCurrentSong();
+                    try {
+                        playCurrentSong();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
@@ -96,7 +118,11 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             if (externalsongList != null && !externalsongList.isEmpty()) {
                 if (currentSongIndex > 0) {
                     currentSongIndex--;
-                    playCurrentSong();
+                    try {
+                        playCurrentSong();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
 
