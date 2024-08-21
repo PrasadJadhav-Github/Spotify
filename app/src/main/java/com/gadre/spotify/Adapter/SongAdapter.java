@@ -20,7 +20,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     // Interface for handling item clicks
     public interface OnSongClickListener {
-        void onSongClick(MusicPlayerDataClass songData);
+        void onSongClick(int position);
     }
 
     public SongAdapter(List<MusicPlayerDataClass> songList, OnSongClickListener onSongClickListener) {
@@ -41,7 +41,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         holder.songNameTextView.setText(songData.getName());
 
         holder.songNameTextView.setOnClickListener(v -> {
-                onSongClickListener.onSongClick(songData);
+            onSongClickListener.onSongClick(position);
         });
     }
 

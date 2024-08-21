@@ -30,7 +30,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
         // Get the list of songs from SongsUtil
         songList = SongsUtil.getRawSongList(this);
-        currentIndex = getIntent().getIntExtra("SONG_INDEX", 0);
+        currentIndex = getIntent().getIntExtra("SONG_POSITION", 0);
 
         if (currentIndex >= 0 && currentIndex < songList.size()) {
             playCurrentSong();

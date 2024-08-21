@@ -1,6 +1,7 @@
 package com.gadre.spotify.Activity;
 
 import android.content.Intent;
+import android.icu.text.Transliterator;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,11 +39,21 @@ public class PlaySongActivity extends AppCompatActivity implements SongAdapter.O
         recyclerView.setAdapter(songAdapter);
 
     }
+
+
+
+//    @Override
+//    public void onSongClick(MusicPlayerDataClass songData) {
+//        Intent intent = new Intent(PlaySongActivity.this, MediaPlayerActivity.class);
+////        intent.putExtra("SONG_ID", songData.getId());
+////        intent.putExtra("SONG_NAME", songData.getName());
+//        startActivity(intent);
+//    }
+
     @Override
-    public void onSongClick(MusicPlayerDataClass songData) {
+    public void onSongClick(int position) {
         Intent intent = new Intent(PlaySongActivity.this, MediaPlayerActivity.class);
-        intent.putExtra("SONG_ID", songData.getId());
-        intent.putExtra("SONG_NAME", songData.getName());
+        intent.putExtra("SONG_POSITION", position);
         startActivity(intent);
     }
 }

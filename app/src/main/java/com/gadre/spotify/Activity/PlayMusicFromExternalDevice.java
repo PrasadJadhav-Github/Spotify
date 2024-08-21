@@ -1,14 +1,10 @@
 package com.gadre.spotify.Activity;
 
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -35,7 +31,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         externalsongList = mediaStoreManager.getAudioFiles();
 
         currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
-       // Uri songUri = getIntent().getParcelableExtra("SONG_URI");
+        // Uri songUri = getIntent().getParcelableExtra("SONG_URI");
         //String songName = getIntent().getStringExtra("SONG_NAME");
 
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
@@ -44,7 +40,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         }
 
         //     binding.songTitleTextView.setText(songName);
-       // mediaPlayer = MediaPlayer.create(this, songUri);
+        // mediaPlayer = MediaPlayer.create(this, songUri);
         //mediaPlayer.start();
         //setUpButtons();
     }
