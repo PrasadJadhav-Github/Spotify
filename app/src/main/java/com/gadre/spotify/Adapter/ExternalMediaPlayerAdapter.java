@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
+import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.R;
 
 import java.util.List;
@@ -17,10 +18,18 @@ import java.util.List;
 public class ExternalMediaPlayerAdapter  extends RecyclerView.Adapter<ExternalMediaPlayerAdapter.AudioFileViewHolder>{
 
     private List<AudioFileDataClass> audioFileDataClassList;
+    private  final  OnExternalSongClickListener onExternalSongClickListener;
 
-    public ExternalMediaPlayerAdapter(List<AudioFileDataClass> audioFileDataClassList) {
-        this.audioFileDataClassList = audioFileDataClassList;
+    public interface OnExternalSongClickListener {
+        void onSongClick(AudioFileDataClass audioData);
     }
+
+    public ExternalMediaPlayerAdapter(List<AudioFileDataClass> audioFileDataClassList, OnExternalSongClickListener onExternalSongClickListener) {
+        this.audioFileDataClassList = audioFileDataClassList;
+        this.onExternalSongClickListener = onExternalSongClickListener;
+    }
+
+
 
     @NonNull
     @Override
@@ -35,6 +44,10 @@ public class ExternalMediaPlayerAdapter  extends RecyclerView.Adapter<ExternalMe
 
         AudioFileDataClass audioFile = audioFileDataClassList.get(position);
         holder.songNameTextView.setText(audioFile.getName());
+        holder.songNameTextView.setOnClickListener(view -> {
+            onExternalSongClickListener.onSongClick(audioFile);
+
+        });
     }
 
     @Override
