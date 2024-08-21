@@ -50,7 +50,7 @@
         android:id="@+id/imageViewPlaySong"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/music"
         android:textColor="@android:color/white"
@@ -68,4 +68,29 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySong"
         app:layout_constraintStart_toStartOf="@+id/imageViewPlaySong"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlaySong" />
+
+
+    <ImageView
+        android:id="@+id/imageViewMediaPlayer"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/video"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlaySong"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textViewMediaPlayer"
+        android:layout_width="84dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:text="     Media"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewMediaPlayer"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewMediaPlayer"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMediaPlayer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,12 @@ public class LauncherActivity extends AppCompatActivity {
             Toast.makeText(LauncherActivity.this, "Opening  Songs ", Toast.LENGTH_SHORT).show();
         });
 
+        binding.imageViewMediaPlayer.setOnClickListener(v -> {
+            Intent intent = new Intent(LauncherActivity.this, ActivityExternalMediaPlayer.class);
+            startActivity(intent);
+            Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
+        });
+
 
     }
 }
