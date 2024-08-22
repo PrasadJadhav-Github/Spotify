@@ -30,7 +30,7 @@
             android:layout_height="36dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:src="@drawable/play" />
+            android:src="@drawable/video" />
 
     </LinearLayout>
 
