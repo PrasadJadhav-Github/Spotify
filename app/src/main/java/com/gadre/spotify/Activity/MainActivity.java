@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.gadre.spotify.Adapter.AlbumApapter;
 import com.gadre.spotify.Interface.DisplayDataInterface;
@@ -13,7 +12,6 @@ import com.gadre.spotify.ModelClass.AlbumJSON;
 import com.gadre.spotify.ModelClass.AlbumData;
 import com.gadre.spotify.ModelClass.Item;
 import com.gadre.spotify.OtherClasses.DisplaySpotifyData;
-import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;

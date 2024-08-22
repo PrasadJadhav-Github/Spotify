@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.gadre.spotify.Fragments.FragmentLogin;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
 
@@ -37,6 +41,17 @@ public class LauncherActivity extends AppCompatActivity {
             Intent intent = new Intent(LauncherActivity.this, ActivityExternalMediaPlayer.class);
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.launcherActivityLoginButton.setOnClickListener(view -> {
+
+            Fragment fragmentLogin = new FragmentLogin();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragmentLogin);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         });
 
 

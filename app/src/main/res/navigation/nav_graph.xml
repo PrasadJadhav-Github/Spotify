@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/DisplayFragment">
+
+    <fragment
+        android:id="@+id/AllSellsInfoFragment"
+        android:name="com.gadre.spotify.Fragments.AllSellsInfoFragment"
+        android:label="fragment_all_sells_info"
+        tools:layout="@layout/fragment_all_sells_info" />
+    <fragment
+        android:id="@+id/CityFragment"
+        android:name="com.gadre.spotify.Fragments.CityFragment"
+        android:label="fragment_city"
+        tools:layout="@layout/fragment_city" />
+    <fragment
+        android:id="@+id/DisplayFragment"
+        android:name="com.gadre.spotify.Fragments.DisplayFragment"
+        android:label="fragment_display"
+        tools:layout="@layout/fragment_display" />
+    <fragment
+        android:id="@+id/SellsPersonFragment"
+        android:name="com.gadre.spotify.Fragments.SellsPersonFragment"
+        android:label="fragment_sells_person"
+        tools:layout="@layout/fragment_sells_person" />
+</navigation>
