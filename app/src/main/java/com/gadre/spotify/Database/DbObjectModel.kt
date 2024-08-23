@@ -14,7 +14,7 @@ data class TSalesPerson(val personname:String){
 }
 data class  TSales(val month :String,val year:String,val salesPersonID:Int,val cityID:Int,val sales:Double)
 
-data class SalesInfo(val month: String,val year: String,val salesPersonName: String,val cityName: String,val sales: Double){}
+data class SalesInfo(val month: String,val year: String,val salesPersonName: String,val cityName: String,val sales: Double)
 
 object ColumnHelper{
     //tcity

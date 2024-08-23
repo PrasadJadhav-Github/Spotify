@@ -71,7 +71,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
 
 
     //function to select all city from sqlite database
-    fun selectCity(): List<TCity>? {  //ArrayList is used to collect and return the list of TCity objects
+    fun selectCity(): List<TCity> {  //ArrayList is used to collect and return the list of TCity objects
         val db = this.readableDatabase //method is used for operations that only fetch or read data
 
         //execute query to select all city from sqlite database
@@ -100,7 +100,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
     }
 
 
-    fun selectpersonname(): List<TSalesPerson>? {
+    fun selectpersonname(): List<TSalesPerson> {
         val db = this.readableDatabase
         val curser: Cursor? =
             db.rawQuery("SELECT * FROM ${ColumnHelper.TABLE_NAME_SELLS_PERSPN}", arrayOf())
@@ -126,7 +126,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
         return globalarrperson
     }
 
-    fun selectSalesDetails(month: String, year: String): ArrayList<SalesInfo>? {
+    fun selectSalesDetails(month: String, year: String): ArrayList<SalesInfo> {
         val db = this.readableDatabase
         val curser = db.rawQuery(
             "SELECT * FROM ${ColumnHelper.TABLE_SALES} WHERE ${ColumnHelper.TSALES_MONTH}='" + month.lowercase() + "' AND ${ColumnHelper.TSALES_YEAR}='" + year + "'",

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaStoreManager {
-    private ContentResolver contentResolver;
+    private final ContentResolver contentResolver;
 
     public MediaStoreManager(ContentResolver contentResolver) {
         this.contentResolver = contentResolver;

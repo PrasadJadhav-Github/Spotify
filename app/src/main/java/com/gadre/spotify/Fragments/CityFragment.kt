@@ -23,7 +23,7 @@ class CityFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCityBinding.inflate(inflater, container, false)
 
         //recycler view implementation

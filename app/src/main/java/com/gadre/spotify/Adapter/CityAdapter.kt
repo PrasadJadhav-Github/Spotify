@@ -8,7 +8,7 @@ import com.gadre.spotify.Database.TCity
 import com.gadre.spotify.R
 import com.gadre.spotify.databinding.CityRecyclerviewItemBinding
 
-class CityAdapter():RecyclerView.Adapter<CityAdapter.CityHolder>() {
+class CityAdapter :RecyclerView.Adapter<CityAdapter.CityHolder>() {
     val cityList = ArrayList<TCity>()
 
 

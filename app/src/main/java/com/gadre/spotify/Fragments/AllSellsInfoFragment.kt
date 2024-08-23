@@ -19,11 +19,13 @@ class AllSellsInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAllSellsInfoBinding.inflate(inflater, container, false)
         onsavebuttonclick()
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

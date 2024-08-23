@@ -19,7 +19,7 @@ import java.util.List;
 
 public class AlbumApapter extends RecyclerView.Adapter<AlbumApapter.AlbumViewHolder> {
 
-    private List<AlbumData> albumList;
+    private final List<AlbumData> albumList;
 
     public AlbumApapter(List<AlbumData> albumList) {
         this.albumList = albumList;

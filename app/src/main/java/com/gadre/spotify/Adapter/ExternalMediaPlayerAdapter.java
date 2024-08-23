@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ExternalMediaPlayerAdapter  extends RecyclerView.Adapter<ExternalMediaPlayerAdapter.AudioFileViewHolder>{
 
-    private List<AudioFileDataClass> audioFileDataClassList;
+    private final List<AudioFileDataClass> audioFileDataClassList;
     private  final  OnExternalSongClickListener onExternalSongClickListener;
 
     public interface OnExternalSongClickListener {

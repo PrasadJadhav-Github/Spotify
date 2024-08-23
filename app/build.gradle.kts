@@ -57,6 +57,6 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.6.1")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
-
     implementation ("com.google.android.material:material:1.2.0")
+    implementation ("androidx.work:work-runtime:2.8.1")
 }

@@ -15,8 +15,8 @@ import retrofit2.Response;
 
 public class DisplaySpotifyData implements FetchDataInterface {
 
-    private DisplayDataInterface displayDataInterface;
-    private ApiServices apiServices;
+    private final DisplayDataInterface displayDataInterface;
+    private final ApiServices apiServices;
 
     public DisplaySpotifyData(DisplayDataInterface displayDataInterface) {
         this.displayDataInterface=displayDataInterface;

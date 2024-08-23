@@ -20,7 +20,7 @@ class SellsPersonFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSellsPersonBinding.inflate(inflater, container, false)
 
         //set up for person recycler view

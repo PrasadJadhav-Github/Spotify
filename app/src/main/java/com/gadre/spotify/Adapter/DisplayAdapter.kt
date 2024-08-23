@@ -8,7 +8,7 @@ import com.gadre.spotify.Database.SalesInfo
 import com.gadre.spotify.R
 import com.gadre.spotify.databinding.DisplayRecyclerviewItemBinding
 
-class DisplayAdapter():RecyclerView.Adapter<DisplayAdapter.DisplayDetailsHolder> (){
+class DisplayAdapter :RecyclerView.Adapter<DisplayAdapter.DisplayDetailsHolder> (){
     val dislaylist=ArrayList<SalesInfo>()
 
     class DisplayDetailsHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
