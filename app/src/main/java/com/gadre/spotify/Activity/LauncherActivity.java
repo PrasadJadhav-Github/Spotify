@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -38,12 +42,12 @@ public class LauncherActivity extends AppCompatActivity {
             Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
         });
 
-//        binding.launcherActivityLoginButton.setOnClickListener(view -> {
+//        binding.imageViewFileManager.setOnClickListener(view -> {
 //
-//            Fragment fragmentLogin = new FragmentLogin();
+//            Fragment fileManagerFragment = new FileManagerFragment();
 //            FragmentManager fragmentManager = getSupportFragmentManager();
 //            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container, fragmentLogin);
+//            fragmentTransaction.replace(R.id.fileManagerFragmentContainer, fileManagerFragment);
 //            fragmentTransaction.addToBackStack(null);
 //            fragmentTransaction.commit();
 //
@@ -53,6 +57,13 @@ public class LauncherActivity extends AppCompatActivity {
             Intent intent = new Intent(LauncherActivity.this, SellsDetailsActivity.class);
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Sales Details ", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.imageViewFileManager.setOnClickListener(view -> {
+            Intent intent =new Intent(LauncherActivity.this,FileManagerActivity.class);
+            startActivity(intent);
+            Toast.makeText(LauncherActivity.this, "Opening  File Manager ", Toast.LENGTH_SHORT).show();
+
         });
 
 

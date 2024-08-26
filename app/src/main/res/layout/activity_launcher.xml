@@ -88,7 +88,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewMediaPlayer"
         app:layout_constraintTop_toBottomOf="@+id/imageViewMediaPlayer" />
 
-
     <ImageView
         android:id="@+id/imageViewSalesInformation"
         android:layout_width="78dp"
@@ -104,11 +103,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Sales"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewSalesInformation"
         app:layout_constraintStart_toStartOf="@+id/imageViewSalesInformation"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation" />
+
+    <ImageView
+        android:id="@+id/imageViewFileManager"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toEndOf="@+id/imageViewSalesInformation"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlaySong" />
+
+    <TextView
+        android:id="@+id/textViewFileManager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Files"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewFileManager"
+        app:layout_constraintStart_toStartOf="@+id/imageViewFileManager"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFileManager" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
