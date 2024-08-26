@@ -1,34 +1,31 @@
-package com.gadre.spotify.Fragments;
+package com.gadre.spotify.Activity;
+
+import static java.security.AccessController.getContext;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Patterns;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.gadre.spotify.Activity.SellsDetailsActivity;
-import com.gadre.spotify.databinding.FragmentLoginBinding;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-public class FragmentLogin extends Fragment {
+import com.gadre.spotify.R;
+import com.gadre.spotify.databinding.ActivityLoginBinding;
 
-    private FragmentLoginBinding binding;
+public class LoginActivity extends AppCompatActivity {
+
+    private ActivityLoginBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        binding.loginButton.setOnClickListener(v -> {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.loginButton.setOnClickListener(view -> {
             String username = binding.usernameEditText.getText().toString().trim();
             String email = binding.emailEditText.getText().toString().trim();
             String password = binding.passwordEditText.getText().toString().trim();
@@ -55,15 +52,17 @@ public class FragmentLogin extends Fragment {
                 return;
             }
 
-
             showError("Login successful");
 
-            Intent intent = new Intent(getActivity(), SellsDetailsActivity.class);
+            Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
+
+
         });
+
     }
 
     private void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

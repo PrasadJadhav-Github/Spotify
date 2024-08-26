@@ -30,8 +30,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
 
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-    }
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
 
     fun insertCity(city: TCity): Boolean {
@@ -200,7 +199,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
         db.close()
         return tPersonName
     }
-
 
 }
 

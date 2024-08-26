@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,14 +13,14 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="#90EE90"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:padding="8dp"
         android:gravity="center_vertical"
-        app:title="Spotify"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Spotify" />
 
     <ImageView
         android:id="@+id/imageViewSpotifyList"
@@ -28,20 +29,18 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/spotify"
-        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textViewSpotifyName"
-        android:layout_width="82dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Song List"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewSpotifyList"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewSpotifyList"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSpotifyList" />
 
@@ -52,14 +51,13 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/music"
-        android:textColor="@android:color/white"
         app:layout_constraintStart_toEndOf="@+id/imageViewSpotifyList"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textViewPlaySong"
-        android:layout_width="82dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Play Song"
         android:textColor="@android:color/black"
@@ -75,49 +73,49 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/video"
-        android:textColor="@android:color/white"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlaySong"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textViewMediaPlayer"
-        android:layout_width="84dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="     Media"
+        android:text="Media"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewMediaPlayer"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewMediaPlayer"
         app:layout_constraintTop_toBottomOf="@+id/imageViewMediaPlayer" />
 
-    <Button
-        android:id="@+id/launcherActivityLoginButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:padding="16dp"
-        android:text="Login"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMediaPlayer"
-        app:layout_constraintVertical_bias="0.965" />
 
+    <ImageView
+        android:id="@+id/imageViewSalesInformation"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/information"
+        app:layout_constraintStart_toStartOf="@+id/textViewSpotifyName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSpotifyName" />
 
+    <TextView
+        android:id="@+id/textViewSalesInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Sales"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewSalesInformation"
+        app:layout_constraintStart_toStartOf="@+id/imageViewSalesInformation"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="40dp" >
-
-
-
-    </FrameLayout>
-
-
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
