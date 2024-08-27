@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityFileManagerBinding;
@@ -23,6 +24,8 @@ public class FileManagerActivity extends AppCompatActivity {
 
     private ActivityFileManagerBinding binding;
     private ActivityResultLauncher<Intent> createFile;
+    private ActivityResultLauncher<Intent> creatNewFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,10 @@ public class FileManagerActivity extends AppCompatActivity {
         // Initialize button listeners
         buttonListeners();
 
+        newFileButtonListener();
         // Initialize file creation launcher
         fileCreation();
+        newFileCreation();
     }
 
     private void buttonListeners() {
@@ -42,16 +47,16 @@ public class FileManagerActivity extends AppCompatActivity {
             String fileName = binding.editTextFileName.getText().toString();
             String fileType = binding.editTextInputText.getText().toString();
 
-            if (fileName.isEmpty() && fileType.isEmpty()) {
+            if (fileName.isEmpty() || fileType.isEmpty()) {
                 Toast.makeText(this, "Please enter a file name", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Create the intent to user choose a location
-            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);//starts an activity to create a new document.
-           // intent.addCategory(Intent.CATEGORY_OPENABLE);// open file manager from device to select folder
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TITLE, fileName);// use to give name to file
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);//starts an activity to create a new document.
+            // intent.addCategory(Intent.CATEGORY_OPENABLE);// open file manager from device to select folder
+//            intent.setType("text/plain");
+//            intent.putExtra(Intent.EXTRA_TITLE, fileName);// use to give name to file
 
             createFile.launch(intent);
         });
@@ -67,6 +72,59 @@ public class FileManagerActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void newFileButtonListener() {
+        binding.buttonCreateNewFile.setOnClickListener(view -> {
+            String fileName = binding.editTextFileName.getText().toString();
+            String fileType = binding.editTextInputText.getText().toString();
+
+            if (fileName.isEmpty() && fileType.isEmpty()) {
+                Toast.makeText(this, "Please enter a file name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);//starts an activity to create a new document.
+
+            creatNewFile.launch(intent);
+        });
+    }
+
+
+    private void newFileCreation() {
+        creatNewFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Uri uri = result.getData().getData();
+
+                if (uri != null) {
+
+                    final int takeFlags = (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
+
+
+                    DocumentFile documentFile = DocumentFile.fromTreeUri(this, uri);
+
+
+                    if (documentFile != null && documentFile.isDirectory()) {
+                        String fileName = binding.editTextFileName.getText().toString();
+                        String fileType = binding.editTextInputText.getText().toString();
+
+
+                        DocumentFile directory = documentFile.createDirectory("Android Files");
+                        if (directory!=null) {
+                            DocumentFile documentFileName = directory.createFile("text/plain", fileName);
+                            if (documentFileName!=null) {
+                                writeFile(documentFileName.getUri());
+                            }
+                        }
+                        Toast.makeText(this, "Folder selected and permission granted", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Selected URI is not a directory", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
 
     private void writeFile(Uri uri) {
         String fileContent = binding.editTextInputText.getText().toString();
@@ -84,4 +142,4 @@ public class FileManagerActivity extends AppCompatActivity {
 }
 
 //getContentResolver().openOutputStream(uri) = is part of Scoped Storage and is recommended
-                                            // for creating and modifying files in external storage.
+// for creating and modifying files in external storage.
