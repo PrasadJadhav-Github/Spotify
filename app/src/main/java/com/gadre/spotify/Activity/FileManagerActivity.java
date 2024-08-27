@@ -36,10 +36,10 @@ public class FileManagerActivity extends AppCompatActivity {
         // Initialize button listeners
         buttonListeners();
 
-        newFileButtonListener();
+        saveFileInNewDirectoryButton();
         // Initialize file creation launcher
         fileCreation();
-        newFileCreation();
+        saveFileInNewDirectory();
     }
 
     private void buttonListeners() {
@@ -74,7 +74,7 @@ public class FileManagerActivity extends AppCompatActivity {
     }
 
 
-    private void newFileButtonListener() {
+    private void saveFileInNewDirectoryButton() {
         binding.buttonCreateNewFile.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
             String fileType = binding.editTextInputText.getText().toString();
@@ -90,7 +90,7 @@ public class FileManagerActivity extends AppCompatActivity {
     }
 
 
-    private void newFileCreation() {
+    private void saveFileInNewDirectory() {
         creatNewFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 Uri uri = result.getData().getData();
