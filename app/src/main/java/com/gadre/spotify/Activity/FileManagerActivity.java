@@ -34,22 +34,22 @@ public class FileManagerActivity extends AppCompatActivity {
         buttonListeners();
 
         // Initialize file creation launcher
-        initFileCreationLauncher();
+        fileCreation();
     }
 
     private void buttonListeners() {
         binding.buttonCreate.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
-            String fileContent = binding.editTextInputText.getText().toString();
+            String fileType = binding.editTextInputText.getText().toString();
 
-            if (fileName.isEmpty() && fileContent.isEmpty()) {
+            if (fileName.isEmpty() && fileType.isEmpty()) {
                 Toast.makeText(this, "Please enter a file name", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Create the intent to user choose a location
-            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);//starts an activity to create a new document.
+            intent.addCategory(Intent.CATEGORY_OPENABLE);// open file manager from device to select folder
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TITLE, fileName);
 
@@ -57,7 +57,7 @@ public class FileManagerActivity extends AppCompatActivity {
         });
     }
 
-    private void initFileCreationLauncher() {
+    private void fileCreation() {
         createFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 Uri uri = result.getData().getData();
@@ -82,3 +82,7 @@ public class FileManagerActivity extends AppCompatActivity {
         }
     }
 }
+
+
+//getContentResolver().openOutputStream(uri) = is part of Scoped Storage and is recommended
+                                            // for creating and modifying files in external storage.
