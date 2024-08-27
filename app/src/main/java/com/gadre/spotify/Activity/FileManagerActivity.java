@@ -49,9 +49,9 @@ public class FileManagerActivity extends AppCompatActivity {
 
             // Create the intent to user choose a location
             Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);//starts an activity to create a new document.
-            intent.addCategory(Intent.CATEGORY_OPENABLE);// open file manager from device to select folder
+           // intent.addCategory(Intent.CATEGORY_OPENABLE);// open file manager from device to select folder
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TITLE, fileName);
+            intent.putExtra(Intent.EXTRA_TITLE, fileName);// use to give name to file
 
             createFile.launch(intent);
         });
