@@ -83,6 +83,5 @@ public class FileManagerActivity extends AppCompatActivity {
     }
 }
 
-
 //getContentResolver().openOutputStream(uri) = is part of Scoped Storage and is recommended
                                             // for creating and modifying files in external storage.
