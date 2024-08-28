@@ -40,12 +40,8 @@ public class FileManagerActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("FileManagerPrefs", MODE_PRIVATE);
 
-        // Initialize button listeners
+        // Initialize methods
         buttonListeners();
-
-//        saveFileInNewDirectoryButton();
-//
-//        saveFileInNewDirectory();
         activityLauncher();
 
     }
@@ -68,8 +64,6 @@ public class FileManagerActivity extends AppCompatActivity {
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TITLE, fileName);
             createFile.launch(intent);
-
-
         });
 
 
@@ -95,13 +89,13 @@ public class FileManagerActivity extends AppCompatActivity {
                     binding.editTextFileName.getText().clear();
                     binding.editTextInputText.getText().clear();
                 }
-
             } else {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);//starts an activity to create a new document.
                 creatNewFile.launch(intent);
             }
         });
     }
+
 
     private void activityLauncher() {
         //Activity launcher for create file
@@ -122,9 +116,7 @@ public class FileManagerActivity extends AppCompatActivity {
         creatNewFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 Uri uri = result.getData().getData();
-
                 if (uri != null) {
-
                     final int takeFlags = (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getContentResolver().takePersistableUriPermission(uri, takeFlags);
 
@@ -154,20 +146,7 @@ public class FileManagerActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
-    //Store files in a fix folder
-//    private void saveFileInNewDirectoryButton() {
-//
-//    }
-//
-//
-//    private void saveFileInNewDirectory() {
-//
-//    }
 
 
     private void writeFile(Uri uri) {
@@ -185,5 +164,3 @@ public class FileManagerActivity extends AppCompatActivity {
     }
 }
 
-//getContentResolver().openOutputStream(uri) = is part of Scoped Storage and is recommended
-// for creating and modifying files in external storage.
