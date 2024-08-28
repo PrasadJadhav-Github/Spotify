@@ -41,16 +41,18 @@ public class FileManagerActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("FileManagerPrefs", MODE_PRIVATE);
 
         // Initialize button listeners
-        createButtonListeners();
+        buttonListeners();
 
-        saveFileInNewDirectoryButton();
-        // Initialize file creation launcher
-        fileCreation();
-        saveFileInNewDirectory();
+//        saveFileInNewDirectoryButton();
+//
+//        saveFileInNewDirectory();
+        activityLauncher();
+
     }
 
     //store files in which ever folder you want
-    private void createButtonListeners() {
+    private void buttonListeners() {
+        //button for save file in different folder
         binding.buttonCreate.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
             String fileType = binding.editTextInputText.getText().toString();
@@ -69,25 +71,9 @@ public class FileManagerActivity extends AppCompatActivity {
 
 
         });
-    }
-
-    private void fileCreation() {
-        createFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Uri uri = result.getData().getData();
-                if (uri != null) {
-                    writeFile(uri);
-                    binding.editTextFileName.getText().clear();
-                    binding.editTextInputText.getText().clear();
-
-                }
-            }
-        });
-    }
 
 
-    //Store files in a fix folder
-    private void saveFileInNewDirectoryButton() {
+        //button for create new file directory
         binding.buttonCreateNewFile.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
             String fileType = binding.editTextInputText.getText().toString();
@@ -117,8 +103,22 @@ public class FileManagerActivity extends AppCompatActivity {
         });
     }
 
+    private void activityLauncher() {
+        //Activity launcher for create file
+        createFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Uri uri = result.getData().getData();
+                if (uri != null) {
+                    writeFile(uri);
+                    binding.editTextFileName.getText().clear();
+                    binding.editTextInputText.getText().clear();
 
-    private void saveFileInNewDirectory() {
+                }
+            }
+        });
+
+
+        //Activity launcher for save file in new directory
         creatNewFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 Uri uri = result.getData().getData();
@@ -154,7 +154,20 @@ public class FileManagerActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+
+
+    //Store files in a fix folder
+//    private void saveFileInNewDirectoryButton() {
+//
+//    }
+//
+//
+//    private void saveFileInNewDirectory() {
+//
+//    }
 
 
     private void writeFile(Uri uri) {

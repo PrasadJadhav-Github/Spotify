@@ -71,6 +71,8 @@ class AllSellsInfoFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show()
             }
+
+
         }
     }
 
