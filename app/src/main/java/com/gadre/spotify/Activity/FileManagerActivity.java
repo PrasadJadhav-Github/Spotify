@@ -49,6 +49,7 @@ public class FileManagerActivity extends AppCompatActivity {
         saveFileInNewDirectory();
     }
 
+    //store files in which ever folder you want
     private void createButtonListeners() {
         binding.buttonCreate.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
@@ -85,6 +86,7 @@ public class FileManagerActivity extends AppCompatActivity {
     }
 
 
+    //Store files in a fix folder
     private void saveFileInNewDirectoryButton() {
         binding.buttonCreateNewFile.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
