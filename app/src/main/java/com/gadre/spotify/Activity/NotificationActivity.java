@@ -1,22 +1,35 @@
 package com.gadre.spotify.Activity;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.OptIn;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.session.MediaButtonReceiver;
+import androidx.media3.session.MediaSession;
+import androidx.media3.session.MediaStyleNotificationHelper;
+
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityNotificationBinding;
 
 public class NotificationActivity extends AppCompatActivity {
 
     private ActivityNotificationBinding binding;
-    private static final String CHANNEL_ID = "login_channel_id";
+    private static final String CHANNEL_ID = "channel_id";
     private NotificationManager notificationManager;
     private final int progress = 0;
+    private MediaSession mediaSession;
 
+    @OptIn(markerClass = UnstableApi.class)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +38,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        // Create Notification Channel
+        // Create Notification Channel  for manage the behavior of notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
@@ -35,6 +48,9 @@ public class NotificationActivity extends AppCompatActivity {
             channel.setDescription("Channel for  notifications");
             notificationManager.createNotificationChannel(channel);
         }
+
+        // Initialize MediaSession
+
 
         binding.buttonBigTextNotification.setOnClickListener(view -> {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -96,6 +112,21 @@ public class NotificationActivity extends AppCompatActivity {
             notificationManager.notify(generateRandomId(), builder.build());
         });
 
+        binding.buttonMediaPlayerNotification.setOnClickListener(view -> {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.musicnode)
+                    .setContentTitle("Now Playing")
+                    .setContentText("Song Title")
+                    .setStyle(new NotificationCompat.MediaStyle()
+                            .setMediaSession(mediaSession.getSessionToken()))
+                    .addAction(R.drawable.pause, "Pause", pauseIntent)
+                    .addAction(R.drawable.play, "Next", nextIntent)
+                    .addAction(R.drawable.next, "Next", nextIntent)
+                    .setPriority(NotificationCompat.PRIORITY_LOW);
+
+            notificationManager.notify(generateRandomId(), builder.build());
+
+        });
 
     }
 

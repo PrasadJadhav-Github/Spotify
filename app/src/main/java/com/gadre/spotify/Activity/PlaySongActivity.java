@@ -21,6 +21,8 @@ public class PlaySongActivity extends AppCompatActivity implements SongAdapter.O
     private ActivityPlaySongBinding binding;
     private RecyclerView recyclerView;
     private SongAdapter songAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +44,6 @@ public class PlaySongActivity extends AppCompatActivity implements SongAdapter.O
 
 
 
-//    @Override
-//    public void onSongClick(MusicPlayerDataClass songData) {
-//        Intent intent = new Intent(PlaySongActivity.this, MediaPlayerActivity.class);
-////        intent.putExtra("SONG_ID", songData.getId());
-////        intent.putExtra("SONG_NAME", songData.getName());
-//        startActivity(intent);
-//    }
 
     @Override
     public void onSongClick(int position) {

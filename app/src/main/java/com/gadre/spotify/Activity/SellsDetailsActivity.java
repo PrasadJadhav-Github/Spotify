@@ -24,10 +24,6 @@ public class SellsDetailsActivity extends AppCompatActivity {
         binding=ActivitySellsDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
-//        NavController navController = navHostFragment.getNavController();
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.navBottomMenu);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         NavController  navController = Navigation.findNavController(this, R.id.fragmentC);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBottomMenu);
