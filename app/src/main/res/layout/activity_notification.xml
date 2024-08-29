@@ -6,5 +6,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.NotificationActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#90EE90"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Notifications" />
+
+
+    <Button
+        android:id="@+id/buttonBigTextNotification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Big Text Notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Button
+        android:id="@+id/buttonBigPictureNotification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Big Picture Notification"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBigTextNotification" />
+
+
+
+    <Button
+        android:id="@+id/buttonInboxStyleNotification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Inbox Style Notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBigPictureNotification" />
+
+    <Button
+        android:id="@+id/buttonProgressNotification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="ProgressNotification"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonInboxStyleNotification" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

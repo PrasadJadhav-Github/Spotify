@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     .setContentTitle("Login Successful")
                     .setContentText("You have successfully logged in.")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                     .setAutoCancel(true);
 
             // NotificationManager to display the notification.

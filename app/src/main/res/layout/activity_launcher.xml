@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Spotify" />
+        app:title="Multi Task Manager" />
 
     <ImageView
         android:id="@+id/imageViewSpotifyList"
@@ -71,6 +71,7 @@
         android:layout_height="78dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="17dp"
         android:src="@drawable/video"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlaySong"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -136,7 +137,7 @@
         android:id="@+id/imageViewnotificationTab"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="17dp"
         android:layout_marginTop="40dp"
         android:src="@drawable/bell"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +164,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation" >
-
-
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
