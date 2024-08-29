@@ -2,17 +2,17 @@ package com.gadre.spotify.Activity;
 
 import static java.security.AccessController.getContext;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.app.NotificationCompat;
 
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLoginBinding;
@@ -20,7 +20,8 @@ import com.gadre.spotify.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private NotificationManagerCompat notificationManagerCompat;
+    private static final String CHANNEL_ID = "login_channel_id";
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,18 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        notificationManagerCompat =NotificationManagerCompat.from(this);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Create Notification Channel for
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Login Notifications",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Channel for login notifications");
+            notificationManager.createNotificationChannel(channel);
+        }
 
         binding.loginButton.setOnClickListener(view -> {
             String username = binding.usernameEditText.getText().toString().trim();
@@ -57,14 +69,25 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            // Show success message
             showError("Login successful");
 
+
+            // Build and show the notification
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.notification)
+                    .setContentTitle("Login Successful")
+                    .setContentText("You have successfully logged in.")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setAutoCancel(true);
+
+            // NotificationManager to display the notification.
+            notificationManager.notify(1, builder.build());
+
+            // Start the LauncherActivity
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
-
-
         });
-
     }
 
     private void showError(String message) {

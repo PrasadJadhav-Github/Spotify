@@ -66,6 +66,12 @@ public class LauncherActivity extends AppCompatActivity {
 
         });
 
+        binding.imageViewnotificationTab.setOnClickListener(view -> {
+            Intent intent =new Intent(LauncherActivity.this,NotificationActivity.class);
+            startActivity(intent);
+            Toast.makeText(LauncherActivity.this, "Opening  Notification Tab ", Toast.LENGTH_SHORT).show();
+        });
+
 
     }
 }
