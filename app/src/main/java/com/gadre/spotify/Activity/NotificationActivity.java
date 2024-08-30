@@ -106,9 +106,6 @@ public class NotificationActivity extends AppCompatActivity {
 
             notificationManager.notify(generateRandomId(), builder.build());
         });
-
-
-
     }
 
     // Function for random id generation
