@@ -85,7 +85,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     }
 
 
-
+     //display notification when song is playing
     private void showNotification(String songTitle) {
 
         PendingIntent prevIntent = PendingIntent.getBroadcast(this, 0, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
