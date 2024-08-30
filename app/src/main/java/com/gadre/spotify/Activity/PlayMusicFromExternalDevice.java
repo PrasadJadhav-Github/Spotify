@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
 import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
