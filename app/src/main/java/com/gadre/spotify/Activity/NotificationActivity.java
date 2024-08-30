@@ -10,13 +10,15 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.OptIn;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.session.MediaButtonReceiver;
 import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaStyleNotificationHelper;
+import androidx.media3.session.legacy.MediaSessionCompat;
 
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityNotificationBinding;
@@ -27,9 +29,9 @@ public class NotificationActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "channel_id";
     private NotificationManager notificationManager;
     private final int progress = 0;
-    private MediaSession mediaSession;
 
-    @OptIn(markerClass = UnstableApi.class)
+
+    @UnstableApi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +40,16 @@ public class NotificationActivity extends AppCompatActivity {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        // Create Notification Channel  for manage the behavior of notifications
+        // Create Notification Channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
-                    " Notifications",
+                    "Notifications",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel.setDescription("Channel for  notifications");
+            channel.setDescription("Channel for notifications");
             notificationManager.createNotificationChannel(channel);
         }
-
-        // Initialize MediaSession
 
 
         binding.buttonBigTextNotification.setOnClickListener(view -> {
@@ -63,14 +63,11 @@ public class NotificationActivity extends AppCompatActivity {
                                     "42 bhp and a torque of 35 Nm. " +
                                     "With both front and rear disc brakes, Bajaj Dominar 400 comes up with anti-locking braking system." +
                                     " This Dominar 400 bike weighs 193 kg and has a fuel tank capacity of 13 liters."))
-
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
 
-            // NotificationManager to display the notification.
             notificationManager.notify(generateRandomId(), builder.build());
         });
-
 
         binding.buttonBigPictureNotification.setOnClickListener(view -> {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -82,7 +79,6 @@ public class NotificationActivity extends AppCompatActivity {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             notificationManager.notify(generateRandomId(), builder.build());
-
         });
 
         binding.buttonInboxStyleNotification.setOnClickListener(view -> {
@@ -91,7 +87,7 @@ public class NotificationActivity extends AppCompatActivity {
                     .setContentTitle("Multiple Notifications")
                     .setContentText("You have new messages.")
                     .setStyle(new NotificationCompat.InboxStyle()
-                            .addLine("Good Morrning")
+                            .addLine("Good Morning")
                             .addLine("How are you")
                             .addLine("Where are you")
                             .setBigContentTitle("New Messages"))
@@ -99,7 +95,6 @@ public class NotificationActivity extends AppCompatActivity {
 
             notificationManager.notify(generateRandomId(), builder.build());
         });
-
 
         binding.buttonProgressNotification.setOnClickListener(view -> {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -112,26 +107,14 @@ public class NotificationActivity extends AppCompatActivity {
             notificationManager.notify(generateRandomId(), builder.build());
         });
 
-        binding.buttonMediaPlayerNotification.setOnClickListener(view -> {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.musicnode)
-                    .setContentTitle("Now Playing")
-                    .setContentText("Song Title")
-                    .setStyle(new NotificationCompat.MediaStyle()
-                            .setMediaSession(mediaSession.getSessionToken()))
-                    .addAction(R.drawable.pause, "Pause", pauseIntent)
-                    .addAction(R.drawable.play, "Next", nextIntent)
-                    .addAction(R.drawable.next, "Next", nextIntent)
-                    .setPriority(NotificationCompat.PRIORITY_LOW);
 
-            notificationManager.notify(generateRandomId(), builder.build());
-
-        });
 
     }
 
-    //founction for random id generation
+    // Function for random id generation
     private int generateRandomId() {
         return (int) (Math.random() * Integer.MAX_VALUE);
     }
+
+
 }

@@ -1,23 +1,23 @@
 package com.gadre.spotify.Activity;
 
+import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
 import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityPlayMusicFromExternalDeviceBinding;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -26,6 +26,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private List<AudioFileDataClass> externalsongList;
     private int currentSongIndex;
+    private static final String CHANNEL_ID = "music_channel_id";
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,55 +38,78 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         MediaStoreManager mediaStoreManager = new MediaStoreManager(getContentResolver());
         externalsongList = mediaStoreManager.getAudioFiles();
 
-        currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
-       // Uri songUri = getIntent().getParcelableExtra("SONG_URI");
-        //String songName = getIntent().getStringExtra("SONG_NAME");
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Play Music",
+                    NotificationManager.IMPORTANCE_LOW
+            );
+            channel.setDescription("Channel for notifications");
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
         mediaPlayer = new MediaPlayer();
 
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
             try {
                 playCurrentSong();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
             setUpButtons();
         }
-
-        //     binding.songTitleTextView.setText(songName);
-        //mediaPlayer.start();
-        //setUpButtons();
     }
-
 
     private void playCurrentSong() throws IOException {
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
-//            if (mediaPlayer != null) {
-//                //mediaPlayer.release();
-//            }
-
             AudioFileDataClass currentSong = externalsongList.get(currentSongIndex);
-//            mediaPlayer = MediaPlayer.create(this, currentSong.getUri());
+
             if (mediaPlayer != null) {
                 mediaPlayer.reset();
-                mediaPlayer.setAudioAttributes( new AudioAttributes.Builder()
+                mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build());
-                mediaPlayer.setDataSource(this,currentSong.getUri());
+                mediaPlayer.setDataSource(this, currentSong.getUri());
                 mediaPlayer.prepare();
                 mediaPlayer.start();
                 String songName = currentSong.getName();
                 binding.songTitleTextView.setText(songName);
+
+                showNotification(songName);
             }
         }
     }
+
+
+
+    private void showNotification(String songTitle) {
+
+        PendingIntent prevIntent = PendingIntent.getBroadcast(this, 0, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent playPauseIntent = PendingIntent.getBroadcast(this, 1, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent nextIntent = PendingIntent.getBroadcast(this, 2, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.musicnode)
+                .setContentTitle("Playing Music")
+                .setContentText(songTitle)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setOngoing(true)
+                .setAutoCancel(false)
+                .addAction(R.drawable.previous, "Previous", prevIntent)
+                .addAction(R.drawable.pause, "Pause/Play", playPauseIntent)
+                .addAction(R.drawable.next, "Next", nextIntent);
+
+        notificationManager.notify(1, builder.build());
+    }
+
 
     private void setUpButtons() {
         ImageButton playPauseButton = binding.externalDevicePlayPauseButton;
         ImageButton nextSongButton = binding.externalDeviceNextButton;
         ImageButton prevousSongButton = binding.externalDevicePreviousButton;
-
 
         playPauseButton.setOnClickListener(view -> {
             if (mediaPlayer != null) {
@@ -98,21 +123,18 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             }
         });
 
-
         nextSongButton.setOnClickListener(view -> {
-
             if (externalsongList != null && !externalsongList.isEmpty()) {
                 if (currentSongIndex < externalsongList.size() - 1) {
                     currentSongIndex++;
                     try {
                         playCurrentSong();
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
             }
         });
-
 
         prevousSongButton.setOnClickListener(view -> {
             if (externalsongList != null && !externalsongList.isEmpty()) {
@@ -121,14 +143,14 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                     try {
                         playCurrentSong();
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
             }
-
         });
-
     }
+
+
 
     @Override
     protected void onPause() {
@@ -144,5 +166,6 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
+        notificationManager.cancel(1);
     }
 }
