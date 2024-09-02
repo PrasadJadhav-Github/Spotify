@@ -156,13 +156,41 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewnotificationTab"
         app:layout_constraintStart_toStartOf="@+id/imageViewnotificationTab"
         app:layout_constraintTop_toBottomOf="@+id/imageViewnotificationTab" />
+
+    <ImageView
+        android:id="@+id/imageViewDateFormatTab"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:src="@drawable/date_format"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="238dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSalesInformation" />
+
+    <TextView
+        android:id="@+id/textViewDateTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Format"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewDateFormatTab"
+        app:layout_constraintStart_toStartOf="@+id/imageViewDateFormatTab"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDateFormatTab" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation" >
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSalesInformation"
+        app:layout_constraintVertical_bias="1.0">
+
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

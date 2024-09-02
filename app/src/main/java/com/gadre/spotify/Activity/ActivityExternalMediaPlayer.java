@@ -66,7 +66,6 @@ public class ActivityExternalMediaPlayer extends AppCompatActivity implements Ex
 
     @Override
     public void onSongClick(AudioFileDataClass audioData) {
-
         Intent intent = new Intent(ActivityExternalMediaPlayer.this, PlayMusicFromExternalDevice.class);
         intent.putExtra("SONG_URI",audioData.getUri() );
         intent.putExtra("SONG_NAME", audioData.getName());
