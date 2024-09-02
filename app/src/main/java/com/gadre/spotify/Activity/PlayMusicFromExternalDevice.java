@@ -39,7 +39,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //Notification Cannel for manage notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {//This line checks if the Android device's API level
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "Play Music",

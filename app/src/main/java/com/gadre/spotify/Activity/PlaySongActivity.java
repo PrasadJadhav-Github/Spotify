@@ -42,9 +42,6 @@ public class PlaySongActivity extends AppCompatActivity implements SongAdapter.O
 
     }
 
-
-
-
     @Override
     public void onSongClick(int position) {
         Intent intent = new Intent(PlaySongActivity.this, MediaPlayerActivity.class);
