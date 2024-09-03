@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private static final String CHANNEL_ID = "login_channel_id";
     private NotificationManager notificationManager;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
+        checkLoginStatus();
+        loginButton();
 
         // Create Notification Channel for manage the behavior of notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -42,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
+
+    }
+
+    private void loginButton() {
         binding.loginButton.setOnClickListener(view -> {
             String username = binding.usernameEditText.getText().toString().trim();
             String email = binding.emailEditText.getText().toString().trim();
@@ -69,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username", username);
+            editor.putString("Email", email);
+            editor.putString("password", password);
+            editor.apply();
+
             // Show success message
             showError("Login successful");
 
@@ -89,6 +105,19 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void checkLoginStatus() {
+        String username = sharedPreferences.getString("username", null);
+        String email = sharedPreferences.getString("email", null);
+        String password = sharedPreferences.getString("password", null);
+
+        if (username != null && email != null && password != null) {
+            Intent intent = new Intent(this, LauncherActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
     }
 
     private void showError(String message) {
