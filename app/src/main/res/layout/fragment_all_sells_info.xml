@@ -7,7 +7,18 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- CardView for Month Input -->
+    <!-- TextView for Month Spinner -->
+    <TextView
+        android:id="@+id/textViewMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Month"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewMonth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- CardView for Month Input with Spinner -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewMonth"
         android:layout_width="0dp"
@@ -17,22 +28,32 @@
         cardview:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/textViewMonth">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextMonth"
+            <Spinner
+                android:id="@+id/spinnerMonth"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Month"
-                android:textColorHint="@color/black"/>
+                android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.cardview.widget.CardView>
+
+    <!-- TextView for Year Spinner -->
+    <TextView
+        android:id="@+id/textViewYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Year"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewYear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMonth"/>
 
     <!-- CardView for Year Input with Spinner -->
     <androidx.cardview.widget.CardView
@@ -44,13 +65,12 @@
         cardview:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewMonth">
+        app:layout_constraintTop_toBottomOf="@id/textViewYear">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:hintTextColor="@color/black">
+            android:layout_margin="8dp">
 
             <Spinner
                 android:id="@+id/spinnerYear"
@@ -60,7 +80,7 @@
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- LinearLayout for Spinners -->
+    <!-- LinearLayout for City and Person Spinners -->
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -71,11 +91,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardViewYear">
 
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:layout_marginTop="20dp"
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
@@ -88,10 +111,13 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="20dp"
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
@@ -111,7 +137,7 @@
         android:id="@+id/cardViewSales"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="35dp"
         cardview:cardCornerRadius="8dp"
         cardview:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"

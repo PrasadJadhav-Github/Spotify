@@ -23,6 +23,10 @@ import java.util.Date
 class AllSellsInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentAllSellsInfoBinding
+    private val months = arrayOf(
+        "apr", "may", "jun", "july", "august", "september",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    )
 
 
     override fun onCreateView(
@@ -64,6 +68,11 @@ class AllSellsInfoFragment : Fragment() {
         binding.spinnerYear.adapter = yearAdapter
 
 
+        val monthAdapter=
+            ArrayAdapter(requireContext(), R.layout.simple_spinner_item,months )
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMonth.adapter = monthAdapter
+
         // Fetch city data and display into dropdown
         val city = dbHelper.selectCity() ?: emptyList()
         val cityAdapter =
@@ -86,7 +95,7 @@ class AllSellsInfoFragment : Fragment() {
 
     private fun onsavebuttonclick() {
         binding.btnSave.setOnClickListener {
-            val month = binding.editTextMonth.text.toString().trim()
+            val month = binding.spinnerMonth.selectedItem.toString().trim()
             val year = binding.spinnerYear.selectedItem.toString().trim()
             val salesString = binding.editSale.text.toString().trim()
             val city = binding.spinnerCityName.selectedItem as? TCity
