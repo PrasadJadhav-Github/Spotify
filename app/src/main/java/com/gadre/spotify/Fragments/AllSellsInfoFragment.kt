@@ -43,14 +43,17 @@ class AllSellsInfoFragment : Fragment() {
         val date = Date()
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"))
         cal.time = date
+        //get the current year from date object
         val year: Int = cal.get(Calendar.YEAR)
         val month: Int = cal.get(Calendar.MONTH)
         val day: Int = cal.get(Calendar.DAY_OF_MONTH)
 
-        val currentYear: Int = cal.get(Calendar.YEAR)
-        val startYear = 2020
-        val endYear = currentYear - 1
-        val years = (startYear..endYear).map { it.toString() }.toTypedArray()
+
+        //create the array to display the years
+        val startYear = 2015
+        val endYear = year
+        val years = Array(endYear - startYear+1) { i -> (startYear + i).toString() }
+
         val dbHelper = DBHelper(requireContext())
 
         // Setup year Spinner
