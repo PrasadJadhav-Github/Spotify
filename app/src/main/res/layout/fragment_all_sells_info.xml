@@ -92,7 +92,6 @@
         app:layout_constraintTop_toBottomOf="@id/cardViewYear">
 
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -154,6 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Sales"
+                android:inputType="numberDecimal"
                 android:textColorHint="@color/black"/>
 
         </com.google.android.material.textfield.TextInputLayout>
