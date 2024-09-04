@@ -54,6 +54,7 @@ class AllSellsInfoFragment : Fragment() {
         val endYear = year
         val years = Array(endYear - startYear+1) { i -> (startYear + i).toString() }
 
+        //create dbhelper object for array adapter
         val dbHelper = DBHelper(requireContext())
 
         // Setup year Spinner
