@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivitySellsDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,7 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class SellsDetailsActivity extends AppCompatActivity {
 
     private ActivitySellsDetailsBinding binding;
-    //private NavController navController;
+    private LoadingDialog loadingDialog;
+
 
 
 
@@ -24,9 +26,14 @@ public class SellsDetailsActivity extends AppCompatActivity {
         binding=ActivitySellsDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        loadingDialog = new LoadingDialog(this);
 
+        loadingDialog.startAlertDialog();
+        new android.os.Handler().postDelayed(() -> {
         NavController  navController = Navigation.findNavController(this, R.id.fragmentC);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBottomMenu);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            loadingDialog.closeAlertDialog();
+        }, 2000);
     }
 }

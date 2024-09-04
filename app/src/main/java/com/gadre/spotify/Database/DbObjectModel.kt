@@ -12,6 +12,7 @@ data class TSalesPerson(val personname:String){
         return personname
     }
 }
+
 data class  TSales(val month :String,val year:String,val salesPersonID:Int,val cityID:Int,val sales:Double)
 
 data class SalesInfo(val month: String,val year: String,val salesPersonName: String,val cityName: String,val sales: Double)
@@ -37,6 +38,7 @@ object ColumnHelper{
     val TSALES_PERSON_FK:String="salesPerson"
     val TSALES_CITY_FK:String="city"
     val TSALES_SELLS:String="sells"
+
 
 
 }

@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
 
 public class LauncherActivity extends AppCompatActivity {
 
     private ActivityLauncherBinding binding;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,9 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.startAlertDialog();
+        new android.os.Handler().postDelayed(() -> {
         binding.imageViewSpotifyList.setOnClickListener(v -> {
             Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
             startActivity(intent);
@@ -77,6 +82,8 @@ public class LauncherActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Notification Tab ", Toast.LENGTH_SHORT).show();
         });
+            loadingDialog.closeAlertDialog();
+        }, 2000);
 
 
     }

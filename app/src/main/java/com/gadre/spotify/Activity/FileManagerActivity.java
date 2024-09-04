@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.documentfile.provider.DocumentFile;
 
+import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityFileManagerBinding;
 
@@ -30,7 +31,7 @@ public class FileManagerActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> createFile;
     private ActivityResultLauncher<Intent> creatNewFile;
     private SharedPreferences sharedPreferences;
-
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class FileManagerActivity extends AppCompatActivity {
         binding = ActivityFileManagerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        loadingDialog = new LoadingDialog(this);
         sharedPreferences = getSharedPreferences("FileManagerPrefs", MODE_PRIVATE);
 
         // Initialize methods
@@ -48,6 +50,8 @@ public class FileManagerActivity extends AppCompatActivity {
 
     //store files in which ever folder you want
     private void buttonListeners() {
+        loadingDialog.startAlertDialog();
+        new android.os.Handler().postDelayed(() -> {
         //button for save file in different folder
         binding.buttonCreate.setOnClickListener(view -> {
             String fileName = binding.editTextFileName.getText().toString();
@@ -94,6 +98,8 @@ public class FileManagerActivity extends AppCompatActivity {
                 creatNewFile.launch(intent);
             }
         });
+            loadingDialog.closeAlertDialog();
+        }, 2000);
     }
 
 

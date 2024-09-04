@@ -1,5 +1,6 @@
 package com.gadre.spotify.Activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 

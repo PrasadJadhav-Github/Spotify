@@ -1,7 +1,5 @@
 package com.gadre.spotify.Activity;
 
-import static java.security.AccessController.getContext;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLoginBinding;
 
@@ -24,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "login_channel_id";
     private NotificationManager notificationManager;
     private SharedPreferences sharedPreferences;
+    private LoadingDialog loadingDialog;  // Add LoadingDialog field
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        loadingDialog = new LoadingDialog(this); // Initialize LoadingDialog
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
         checkLoginStatus();
         loginButton();
 
-        // Create Notification Channel for manage the behavior of notifications
+        // Create Notification Channel for managing the behavior of notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
@@ -47,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             channel.setDescription("Channel for login notifications");
             notificationManager.createNotificationChannel(channel);
         }
-
-
     }
 
     private void loginButton() {
@@ -79,31 +78,39 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("username", username);
-            editor.putString("Email", email);
-            editor.putString("password", password);
-            editor.apply();
+            // Show the loading dialog
+            loadingDialog.startAlertDialog();
+            new android.os.Handler().postDelayed(() -> {
+                // Save user data
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("username", username);
+                editor.putString("email", email);
+                editor.putString("password", password);
+                editor.apply();
 
-            // Show success message
-            showError("Login successful");
+                // Show success message
+                showError("Login successful");
 
+                // Build and show the notification
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentTitle("Login Successful")
+                        .setContentText("You have successfully logged in.")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .setAutoCancel(true);
 
-            // Build and show the notification
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.notification)
-                    .setContentTitle("Login Successful")
-                    .setContentText("You have successfully logged in.")
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                    .setAutoCancel(true);
+                // NotificationManager to display the notification
+                notificationManager.notify(1, builder.build());
 
-            // NotificationManager to display the notification.
-            notificationManager.notify(1, builder.build());
+                // Start the LauncherActivity
+                Intent intent = new Intent(this, LauncherActivity.class);
+                startActivity(intent);
+                finish();
 
-            // Start the LauncherActivity
-            Intent intent = new Intent(this, LauncherActivity.class);
-            startActivity(intent);
+                // Dismiss the loading dialog
+                loadingDialog.closeAlertDialog();
+            }, 2000); // Simulate a delay of 2 seconds
         });
     }
 
@@ -116,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
             finish();
-
         }
     }
 

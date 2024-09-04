@@ -18,10 +18,13 @@ public class DisplaySpotifyData implements FetchDataInterface {
     private final DisplayDataInterface displayDataInterface;
     private final ApiServices apiServices;
 
+
     public DisplaySpotifyData(DisplayDataInterface displayDataInterface) {
         this.displayDataInterface=displayDataInterface;
         apiServices= RetrofitClient.getSpotifyData();
+
     }
+
 
     @Override
     public void fetchDataFromSpotifyApi() {
@@ -33,6 +36,7 @@ public class DisplaySpotifyData implements FetchDataInterface {
                     AlbumJSON albumJSON=response.body();
                    displayDataInterface.displayDataOfSpotify(albumJSON);
                 }
+
             }
 
             @Override
