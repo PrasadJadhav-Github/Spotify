@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.Locale
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", null, 1) {
@@ -32,9 +34,27 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
+    //checks is city present in databse
+    fun isCityExists(cityName: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM ${ColumnHelper.TABLE_NAME_CITY} WHERE ${ColumnHelper.TCITY_NAME} = ?"
+        val cursor = db.rawQuery(query, arrayOf(cityName))
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                val count = cursor.getInt(0)
+                return count > 0
+            }
+        }
+        return false
+    }
 
     fun insertCity(city: TCity): Boolean {
-        val db = this.writableDatabase // method is used for operations like insert data
+        val db = this.writableDatabase
+        // Check if the city already exists
+        if (isCityExists(city.cityname)) {
+            return false
+        }
+        // if City is  not exist then insert city
         val values = ContentValues().apply {
             put(ColumnHelper.TCITY_NAME, city.cityname)
         }
@@ -42,6 +62,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
         db.close()
         return id != -1L
     }
+
 
     fun insertSales(sales: TSales): Boolean {
         val db = this.writableDatabase
@@ -97,6 +118,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
         db.close()
         return globalarr
     }
+
 
 
     fun selectpersonname(): List<TSalesPerson> {

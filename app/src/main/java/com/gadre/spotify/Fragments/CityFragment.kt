@@ -46,9 +46,11 @@ class CityFragment : Fragment() {
             if (cityName.isNotEmpty()) {
                 val isInseted = dbHelper.insertCity(TCity(cityName))
                 if (isInseted) {
-                    Toast.makeText(requireContext(), "City added successfully", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), cityName+  "  added successfully", Toast.LENGTH_SHORT)
                         .show()
                     displayDatafromsqlite()
+                }else{
+                    Toast.makeText(requireContext(), cityName+"  is  already exists", Toast.LENGTH_SHORT).show()
                 }
             }
         }
