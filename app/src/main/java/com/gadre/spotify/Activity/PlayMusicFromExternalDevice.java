@@ -10,7 +10,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
@@ -27,6 +30,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     private int currentSongIndex;
     private static final String CHANNEL_ID = "music_channel_id";
     private NotificationManager notificationManager;
+    private Handler handler;
+    private Runnable updateSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
+
         currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
         mediaPlayer = new MediaPlayer();
 
@@ -60,6 +66,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                 e.printStackTrace();
             }
             setUpButtons();
+            setUpSeekBar();
         }
     }
 
@@ -79,6 +86,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                 String songName = currentSong.getName();
                 binding.songTitleTextView.setText(songName);
 
+                binding.externalMediaPlayerseekBar.setMax(mediaPlayer.getDuration());
                 showNotification(songName);
             }
         }
@@ -148,6 +156,52 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             }
         });
     }
+    private void setUpSeekBar() {
+        SeekBar seekBar = binding.externalMediaPlayerseekBar;
+        handler = new Handler();
+
+        // Set the max value for the SeekBar based on the media duration
+        if (mediaPlayer != null) {
+            seekBar.setMax(mediaPlayer.getDuration());
+        }
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser && mediaPlayer != null) {
+                    mediaPlayer.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.seekTo(seekBar.getProgress());
+                    mediaPlayer.start();
+                }
+            }
+        });
+
+        // Runnable to update the SeekBar position
+        updateSeekBar = new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    seekBar.setProgress(currentPosition);
+                    handler.postDelayed(this, 1000); // Update every second
+                }
+            }
+        };
+        handler.post(updateSeekBar);
+    }
 
 
 
@@ -164,7 +218,10 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         super.onDestroy();
         if (mediaPlayer != null) {
             mediaPlayer.release();
+            mediaPlayer = null;
         }
-        notificationManager.cancel(1);
+        if (handler != null) {
+            handler.removeCallbacks(updateSeekBar);
+        }
     }
 }
