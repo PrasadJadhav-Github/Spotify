@@ -1,5 +1,6 @@
 package com.gadre.spotify.Database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -35,16 +36,17 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
     //checks is city present in databse
-    fun isCityExists(cityName: String): Boolean {
+    @SuppressLint("SuspiciousIndentation")
+    private fun isCityExists(cityName: String): Boolean {
         val db = this.readableDatabase
         val query = "SELECT * FROM ${ColumnHelper.TABLE_NAME_CITY} WHERE ${ColumnHelper.TCITY_NAME} = ?"
         val cursor = db.rawQuery(query, arrayOf(cityName))
-        cursor.use {
             if (cursor.moveToFirst()) {
                 val count = cursor.getInt(0)
+                cursor.close()
                 return count > 0
             }
-        }
+        cursor.close()
         return false
     }
 

@@ -2,11 +2,11 @@ package com.gadre.spotify.Activity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
 import com.gadre.spotify.R;
@@ -18,9 +18,10 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
     private ActivityMediaPlayerBinding binding;
     private MediaPlayer mediaPlayer;
-
     private List<MusicPlayerDataClass> songList;
     private int currentIndex;
+    private Handler handler;
+    private Runnable updateSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,8 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
         if (currentIndex >= 0 && currentIndex < songList.size()) {
             playCurrentSong();
-            // Set up button
             setUpButtons();
+            setUpSeekBar();
         }
     }
 
@@ -49,8 +50,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
             mediaPlayer = MediaPlayer.create(this, currentSong.getId());
             if (mediaPlayer != null) {
                 mediaPlayer.start();
-                String songName = currentSong.getName();
-                binding.songTitleTextView.setText(songName);
+                binding.songTitleTextView.setText(currentSong.getName());
             }
         }
     }
@@ -61,12 +61,14 @@ public class MediaPlayerActivity extends AppCompatActivity {
         ImageButton nextButton = binding.nextButton;
 
         playPauseButton.setOnClickListener(v -> {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.pause();
-                playPauseButton.setImageResource(android.R.drawable.ic_media_play);
-            } else {
-                mediaPlayer.start();
-                playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_play);
+                } else {
+                    mediaPlayer.start();
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+                }
             }
         });
 
@@ -85,6 +87,52 @@ public class MediaPlayerActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpSeekBar() {
+        SeekBar seekBar = binding.mediaPlayerseekBar;
+        handler = new Handler();
+
+        // Set the max value for the SeekBar
+        if (mediaPlayer != null) {
+            seekBar.setMax(mediaPlayer.getDuration());
+        }
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser && mediaPlayer != null) {
+                    mediaPlayer.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.seekTo(seekBar.getProgress());
+                    mediaPlayer.start();
+                }
+            }
+        });
+
+        // Runnable to update the SeekBar position
+        updateSeekBar = new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    seekBar.setProgress(currentPosition);
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        };        handler.post(updateSeekBar);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -98,6 +146,10 @@ public class MediaPlayerActivity extends AppCompatActivity {
         super.onDestroy();
         if (mediaPlayer != null) {
             mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        if (handler != null) {
+            handler.removeCallbacks(updateSeekBar);
         }
     }
 }

@@ -49,9 +49,12 @@ class CityFragment : Fragment() {
                     Toast.makeText(requireContext(), cityName+  "  added successfully", Toast.LENGTH_SHORT)
                         .show()
                     displayDatafromsqlite()
-                }else{
+                }else {
                     Toast.makeText(requireContext(), cityName+"  is  already exists", Toast.LENGTH_SHORT).show()
                 }
+            }else{
+                Toast.makeText(requireContext(), "Please Enter City Name", Toast.LENGTH_SHORT).show()
+
             }
         }
 

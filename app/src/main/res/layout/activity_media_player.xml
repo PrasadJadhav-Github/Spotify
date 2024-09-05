@@ -7,21 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MediaPlayerActivity">
 
-
     <ImageView
         android:id="@+id/albumArtImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
         android:contentDescription="Album Art"
         android:scaleType="centerCrop"
         android:src="@drawable/musical"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/songTitleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_margin="16dp"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/songTitleTextView"
@@ -34,18 +32,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/albumArtImageView"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2" />/>
+
+    <SeekBar
+        android:id="@+id/mediaPlayerseekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        app:layout_constraintBottom_toTopOf="@+id/buttonControls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songTitleTextView" />
 
     <LinearLayout
         android:id="@+id/buttonControls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp">
-
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/previousButton"
@@ -53,7 +60,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="Previous"
             android:src="@android:drawable/ic_media_previous" />
-
 
         <ImageButton
             android:id="@+id/playPauseButton"
@@ -69,4 +75,5 @@
             android:contentDescription="Next"
             android:src="@android:drawable/ic_media_next" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

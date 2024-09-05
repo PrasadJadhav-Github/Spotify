@@ -41,13 +41,11 @@ class SellsPersonFragment : Fragment() {
             if (sellspersonname.isNotEmpty()) {
                 val isInseted = dbHelper.insertPersonName(TSalesPerson(sellspersonname))
                 if (isInseted) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Sells person added successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Sells person added successfully", Toast.LENGTH_SHORT).show()
                     displayperson()
                 }
+            }else{
+                Toast.makeText(requireContext(), "Please Enter Sells Person Name ", Toast.LENGTH_SHORT).show()
             }
         }
     }
