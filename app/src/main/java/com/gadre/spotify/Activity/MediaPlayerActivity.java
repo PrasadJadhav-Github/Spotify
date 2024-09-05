@@ -165,11 +165,17 @@ public class MediaPlayerActivity extends AppCompatActivity {
     }
 
 
+
     private  void onBookmarkClickListener(){
         binding.imageViewBookMark.setOnClickListener(view -> {
+            MusicPlayerDataClass currentSong = songList.get(currentIndex);
+            String title = currentSong.getName();
+            int bookmarkposition=mediaPlayer.getCurrentPosition();
+
+            BookmarkEntity bookmarkEntity=new BookmarkEntity(title,bookmarkposition);
             Executors.newSingleThreadExecutor().execute(() -> {
-                BookmarkEntity bookmarkEntity=new BookmarkEntity("");
-            }
+                bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
+            });
         });
     }
 
