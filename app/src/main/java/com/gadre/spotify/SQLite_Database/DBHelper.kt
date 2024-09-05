@@ -1,4 +1,4 @@
-package com.gadre.spotify.Database
+package com.gadre.spotify.SQLite_Database
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -6,8 +6,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.Locale
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, "DbSalesRecords", null, 1) {

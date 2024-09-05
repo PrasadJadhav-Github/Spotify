@@ -1,4 +1,4 @@
-package com.gadre.spotify.Database
+package com.gadre.spotify.SQLite_Database
 
 data class TCity (val cityname:String){
     var cityID:Int?=null

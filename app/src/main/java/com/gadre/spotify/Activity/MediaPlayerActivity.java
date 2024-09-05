@@ -9,9 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
 import com.gadre.spotify.R;
+import com.gadre.spotify.RoomDatabase_DAO.BookmarkDAO;
+import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
+import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 import com.gadre.spotify.databinding.ActivityMediaPlayerBinding;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class MediaPlayerActivity extends AppCompatActivity {
 
@@ -21,12 +25,17 @@ public class MediaPlayerActivity extends AppCompatActivity {
     private int currentIndex;
     private Handler handler;
     private Runnable updateSeekBar;
+    private BookmarkDatabase bookmarkDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMediaPlayerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //instance of bookmarkdatabase class
+        bookmarkDatabase=BookmarkDatabase.getDB(this);
+
 
         // Get the list of songs from SongsUtil
         songList = SongsUtil.getRawSongList(this);
@@ -37,6 +46,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
             setUpButtons();
             setUpSeekBar();
         }
+        onBookmarkClickListener();
     }
 
     private void playCurrentSong() {
@@ -103,7 +113,8 @@ public class MediaPlayerActivity extends AppCompatActivity {
     }
 
     private String formatTime(int milliseconds) {
-        int minutes = (milliseconds / 1000) / 60;
+        int minutes = (milliseconds / 1000) / 60; //get 1 second
+        int hour=(milliseconds/(1000*60*60))%24;
         int seconds = (milliseconds / 1000) % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
@@ -151,6 +162,15 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
         // Start updating the SeekBar and time display
         handler.post(updateSeekBar);
+    }
+
+
+    private  void onBookmarkClickListener(){
+        binding.imageViewBookMark.setOnClickListener(view -> {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                BookmarkEntity bookmarkEntity=new BookmarkEntity("");
+            }
+        });
     }
 
     @Override

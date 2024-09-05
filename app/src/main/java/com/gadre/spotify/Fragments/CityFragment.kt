@@ -1,7 +1,6 @@
 package com.gadre.spotify.Fragments
 
 import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,10 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gadre.spotify.Adapter.CityAdapter
-import com.gadre.spotify.Database.DBHelper
-import com.gadre.spotify.Database.TCity
+import com.gadre.spotify.SQLite_Database.DBHelper
+import com.gadre.spotify.SQLite_Database.TCity
 import com.gadre.spotify.databinding.FragmentCityBinding
-import com.google.android.material.snackbar.Snackbar
 
 
 class CityFragment : Fragment() {

@@ -78,6 +78,10 @@ dependencies {
         implementation("androidx.media:media:1.7.0")
         implementation("androidx.media3:media3-session:1.0.0")
         implementation("androidx.media3:media3-exoplayer:1.0.0")
+
+        //RoomDatabase
+        implementation ("androidx.room:room-runtime:2.5.0")
+        annotationProcessor ("androidx.room:room-compiler:2.5.0")
     }
 
 

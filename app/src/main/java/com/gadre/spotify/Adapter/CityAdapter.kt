@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gadre.spotify.Database.TCity
+import com.gadre.spotify.SQLite_Database.TCity
 import com.gadre.spotify.R
 import com.gadre.spotify.databinding.CityRecyclerviewItemBinding
 

@@ -8,6 +8,16 @@
     tools:context=".Activity.MediaPlayerActivity">
 
     <ImageView
+        android:id="@+id/imageViewBookMark"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:src="@drawable/bookmark"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonControls"
+        app:layout_constraintStart_toEndOf="@+id/buttonControls"
+        app:layout_constraintTop_toTopOf="@+id/buttonControls" />
+
+    <ImageView
         android:id="@+id/albumArtImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"

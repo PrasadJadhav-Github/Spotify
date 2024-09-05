@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gadre.spotify.Adapter.PersonNameAdapter
-import com.gadre.spotify.Database.DBHelper
-import com.gadre.spotify.Database.TSalesPerson
+import com.gadre.spotify.SQLite_Database.DBHelper
+import com.gadre.spotify.SQLite_Database.TSalesPerson
 import com.gadre.spotify.databinding.FragmentSellsPersonBinding
 
 

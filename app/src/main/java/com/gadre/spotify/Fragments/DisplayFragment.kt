@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gadre.spotify.Adapter.DisplayAdapter
-import com.gadre.spotify.Database.DBHelper
+import com.gadre.spotify.SQLite_Database.DBHelper
 import com.gadre.spotify.databinding.FragmentDisplayBinding
 
 class DisplayFragment : Fragment() {

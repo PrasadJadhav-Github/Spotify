@@ -12,10 +12,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.gadre.spotify.Database.DBHelper
-import com.gadre.spotify.Database.TCity
-import com.gadre.spotify.Database.TSales
-import com.gadre.spotify.Database.TSalesPerson
+import com.gadre.spotify.SQLite_Database.DBHelper
+import com.gadre.spotify.SQLite_Database.TCity
+import com.gadre.spotify.SQLite_Database.TSales
+import com.gadre.spotify.SQLite_Database.TSalesPerson
 import com.gadre.spotify.databinding.FragmentAllSellsInfoBinding
 import java.util.Date
 
