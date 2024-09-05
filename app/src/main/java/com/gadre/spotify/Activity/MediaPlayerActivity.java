@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
@@ -48,9 +47,15 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
             MusicPlayerDataClass currentSong = songList.get(currentIndex);
             mediaPlayer = MediaPlayer.create(this, currentSong.getId());
+
             if (mediaPlayer != null) {
                 mediaPlayer.start();
                 binding.songTitleTextView.setText(currentSong.getName());
+
+                // Update SeekBar max value and time display after mediaPlayer starts
+                SeekBar seekBar = binding.mediaPlayerseekBar;
+                seekBar.setMax(mediaPlayer.getDuration());
+                updateTimes();
             }
         }
     }
@@ -87,14 +92,38 @@ public class MediaPlayerActivity extends AppCompatActivity {
         });
     }
 
+    private void updateTimes() {
+        if (mediaPlayer != null) {
+            int currentPosition = mediaPlayer.getCurrentPosition();
+            int duration = mediaPlayer.getDuration();
+
+            binding.startTimeTextView.setText(formatTime(currentPosition));
+            binding.endTimeTextView.setText(formatTime(duration));
+        }
+    }
+
+    private String formatTime(int milliseconds) {
+        int minutes = (milliseconds / 1000) / 60;
+        int seconds = (milliseconds / 1000) % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
     private void setUpSeekBar() {
         SeekBar seekBar = binding.mediaPlayerseekBar;
         handler = new Handler();
 
-        // Set the max value for the SeekBar
-        if (mediaPlayer != null) {
-            seekBar.setMax(mediaPlayer.getDuration());
-        }
+        // Runnable to update the SeekBar and time display
+        updateSeekBar = new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    seekBar.setProgress(currentPosition);
+                    updateTimes();  // Update the time display
+                    handler.postDelayed(this, 1000); // Update every second
+                }
+            }
+        };
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -120,17 +149,8 @@ public class MediaPlayerActivity extends AppCompatActivity {
             }
         });
 
-        // Runnable to update the SeekBar position
-        updateSeekBar = new Runnable() {
-            @Override
-            public void run() {
-                if (mediaPlayer != null) {
-                    int currentPosition = mediaPlayer.getCurrentPosition();
-                    seekBar.setProgress(currentPosition);
-                    handler.postDelayed(this, 1000);
-                }
-            }
-        };        handler.post(updateSeekBar);
+        // Start updating the SeekBar and time display
+        handler.post(updateSeekBar);
     }
 
     @Override
