@@ -119,8 +119,8 @@ public class MediaPlayerActivity extends AppCompatActivity {
                 if (mediaPlayer != null) {
                     int currentPosition = mediaPlayer.getCurrentPosition();
                     seekBar.setProgress(currentPosition);
-                    updateTimes();  // Update the time display
-                    handler.postDelayed(this, 1000); // Update every second
+                    updateTimes();
+                    handler.postDelayed(this, 1000);
                 }
             }
         };
