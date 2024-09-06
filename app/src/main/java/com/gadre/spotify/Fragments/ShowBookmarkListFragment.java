@@ -22,7 +22,7 @@ public class ShowBookmarkListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentShowBookmarkListBinding.inflate(inflater, container, false);
+        binding = FragmentShowBookmarkListBinding.inflate(getLayoutInflater());
         bookmarkDatabase = BookmarkDatabase.getDatabase(requireContext());
         return binding.getRoot();
     }
