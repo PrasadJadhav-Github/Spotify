@@ -18,6 +18,4 @@ public interface BookmarkDAO {
 
     @Query("SELECT * FROM Bookmark")
      List<BookmarkEntity> getAllSongs();
-
-
 }

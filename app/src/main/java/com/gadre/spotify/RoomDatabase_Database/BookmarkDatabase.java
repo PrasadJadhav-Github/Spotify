@@ -17,14 +17,19 @@ public abstract class BookmarkDatabase extends RoomDatabase {
     // object of current class
     private static BookmarkDatabase instance;
     //synchronized method for single entry at a time
-    public static synchronized BookmarkDatabase getDB(Context context){
-        if (instance==null){
-            instance= Room.databaseBuilder(context,BookmarkDatabase.class,DB_NAME)
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build();
+    public static BookmarkDatabase getDatabase(final Context context) {
+        if (instance == null) {
+            synchronized (BookmarkDatabase.class) {
+                if (instance == null) {
+                    instance = Room.databaseBuilder(context.getApplicationContext(),
+                                    BookmarkDatabase.class, DB_NAME)
+                            .build();
+                }
+            }
         }
         return instance;
     }
 
 }
+
+

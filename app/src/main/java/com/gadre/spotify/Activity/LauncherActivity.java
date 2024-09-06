@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.gadre.spotify.Fragments.ShowBookmarkListFragment;
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
@@ -47,18 +48,17 @@ public class LauncherActivity extends AppCompatActivity {
             Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
         });
 
-//        binding.imageViewFileManager.setOnClickListener(view -> {
-//
-//            Fragment fileManagerFragment = new FileManagerFragment();
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.fileManagerFragmentContainer, fileManagerFragment);
-//            fragmentTransaction.addToBackStack(null);
-//            fragmentTransaction.commit();
-//
-//        });
+            binding.imageViewBookmarkTab.setOnClickListener(view -> {
+                Fragment showBookmarkFragment = new ShowBookmarkListFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.showbookmark_fragment_container, showBookmarkFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            });
 
-        binding.imageViewSalesInformation.setOnClickListener(view -> {
+
+            binding.imageViewSalesInformation.setOnClickListener(view -> {
             Intent intent = new Intent(LauncherActivity.this, SellsDetailsActivity.class);
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Sales Details ", Toast.LENGTH_SHORT).show();

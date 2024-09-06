@@ -3,6 +3,7 @@ package com.gadre.spotify.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //instance of bookmarkdatabase class
-        bookmarkDatabase=BookmarkDatabase.getDB(this);
+        bookmarkDatabase=BookmarkDatabase.getDatabase(this);
 
 
         // Get the list of songs from SongsUtil
@@ -165,19 +166,20 @@ public class MediaPlayerActivity extends AppCompatActivity {
     }
 
 
-
     private  void onBookmarkClickListener(){
         binding.imageViewBookMark.setOnClickListener(view -> {
             MusicPlayerDataClass currentSong = songList.get(currentIndex);
             String title = currentSong.getName();
             int bookmarkposition=mediaPlayer.getCurrentPosition();
-
             BookmarkEntity bookmarkEntity=new BookmarkEntity(title,bookmarkposition);
+            Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkposition);
             Executors.newSingleThreadExecutor().execute(() -> {
                 bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
+                Log.d("Bookmark", "Bookmark inserted into database");
             });
         });
     }
+
 
     @Override
     protected void onPause() {

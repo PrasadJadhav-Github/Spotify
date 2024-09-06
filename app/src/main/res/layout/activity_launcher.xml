@@ -180,6 +180,29 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewDateFormatTab"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDateFormatTab" />
 
+    <ImageView
+        android:id="@+id/imageViewBookmarkTab"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+       android:layout_marginRight="100dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/bookmarktab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDateFormatTab"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFileManager" />
+
+    <TextView
+        android:id="@+id/textViewBookmarkTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bookmark"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBookmarkTab"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBookmarkTab"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBookmarkTab" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
