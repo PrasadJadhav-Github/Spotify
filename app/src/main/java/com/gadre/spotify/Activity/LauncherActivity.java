@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.gadre.spotify.Fragments.ShowBookmarkListFragment;
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
@@ -48,14 +47,15 @@ public class LauncherActivity extends AppCompatActivity {
             Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
         });
 
-            binding.imageViewBookmarkTab.setOnClickListener(view -> {
-                Fragment showBookmarkFragment = new ShowBookmarkListFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.showbookmark_fragment_container, showBookmarkFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            });
+//            binding.imageViewBookmarkTab.setOnClickListener(view -> {
+//                Fragment showBookmarkFragment = new ShowBookmarkListFragment();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container, showBookmarkFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//            });
+
 
 
             binding.imageViewSalesInformation.setOnClickListener(view -> {
@@ -76,6 +76,12 @@ public class LauncherActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Notification Tab ", Toast.LENGTH_SHORT).show();
         });
+
+            binding.imageViewBookmarkTab.setOnClickListener(view -> {
+                Intent intent =new Intent(LauncherActivity.this,ShowBookmarkActivity.class);
+                startActivity(intent);
+                Toast.makeText(LauncherActivity.this, "Opening  Bookmark Tab ", Toast.LENGTH_SHORT).show();
+            });
 
         binding.imageViewDateFormatTab.setOnClickListener(view -> {
             Intent intent =new Intent(LauncherActivity.this,DateFormatActivity.class);

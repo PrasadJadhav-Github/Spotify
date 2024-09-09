@@ -20,6 +20,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
         this.bookmarkEntityList = bookmarkEntityList;
     }
 
+
     @NonNull
     @Override
     public BookmarkAdapter.BookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,8 +30,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkAdapter.BookmarkViewHolder holder, int position) {
-
         BookmarkEntity bookmarkEntity=bookmarkEntityList.get(position);
+       holder.bookmarkTextView.setText(bookmarkEntity.getTitle());
 
     }
 
@@ -38,6 +39,16 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public int getItemCount() {
         return bookmarkEntityList.size();
     }
+
+
+
+
+    public void updateBookmarks(List<BookmarkEntity> newBookmarks) {
+        bookmarkEntityList.clear();
+        bookmarkEntityList.addAll(newBookmarks);
+        notifyDataSetChanged();
+    }
+
 
     public class BookmarkViewHolder extends RecyclerView.ViewHolder {
 

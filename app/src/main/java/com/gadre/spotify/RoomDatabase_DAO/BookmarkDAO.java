@@ -18,4 +18,7 @@ public interface BookmarkDAO {
 
     @Query("SELECT * FROM Bookmark")
      List<BookmarkEntity> getAllSongs();
+
+    @Query("SELECT * FROM Bookmark WHERE title = :title")
+    BookmarkEntity getSongByTitle(String title);
 }
