@@ -54,6 +54,7 @@ public class ShowBookmarkActivity extends AppCompatActivity {
 
     }
 
+    //method to fetch and display the bookmark songs
     private void fetchAndDisplayBookmarks() {
         executorService.execute(() -> {
                 // Fetch data from the database

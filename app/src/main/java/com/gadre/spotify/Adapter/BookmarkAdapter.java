@@ -32,6 +32,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public void onBindViewHolder(@NonNull BookmarkAdapter.BookmarkViewHolder holder, int position) {
         BookmarkEntity bookmarkEntity=bookmarkEntityList.get(position);
        holder.bookmarkTextView.setText(bookmarkEntity.getTitle());
+      // holder.textViewDuration.setText(bookmarkEntity.getBookmarkposition());
 
     }
 
@@ -53,9 +54,11 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public class BookmarkViewHolder extends RecyclerView.ViewHolder {
 
         TextView bookmarkTextView;
+        TextView textViewDuration;
         public BookmarkViewHolder(@NonNull View itemView) {
             super(itemView);
             bookmarkTextView=itemView.findViewById(R.id.textviewShowBookmark);
+            textViewDuration=itemView.findViewById(R.id.textViewDuration);
         }
     }
 }

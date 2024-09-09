@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
@@ -173,6 +175,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
             int bookmarkposition=mediaPlayer.getCurrentPosition();
             BookmarkEntity bookmarkEntity=new BookmarkEntity(title,bookmarkposition);
             Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkposition);
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Bookmark added: " + title, Toast.LENGTH_SHORT).show());
             Executors.newSingleThreadExecutor().execute(() -> {
                 bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
                 Log.d("Bookmark", "Bookmark inserted into database");
