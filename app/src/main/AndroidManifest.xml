@@ -40,7 +40,7 @@
             android:name=".Activity.PlayMusicFromExternalDevice"
             android:exported="false" />
         <activity
-            android:name=".Activity.ActivityExternalMediaPlayer"
+            android:name=".Activity.ActivityFetchExternalSongs"
             android:exported="false" />
         <activity
             android:name=".Activity.MediaPlayerActivity"

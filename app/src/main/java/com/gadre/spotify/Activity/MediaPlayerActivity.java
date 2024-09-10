@@ -1,5 +1,6 @@
 package com.gadre.spotify.Activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
 import com.gadre.spotify.R;
-import com.gadre.spotify.RoomDatabase_DAO.BookmarkDAO;
 import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 import com.gadre.spotify.databinding.ActivityMediaPlayerBinding;
@@ -36,23 +36,41 @@ public class MediaPlayerActivity extends AppCompatActivity {
         binding = ActivityMediaPlayerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //instance of bookmarkdatabase class
-        bookmarkDatabase=BookmarkDatabase.getDatabase(this);
+        // Initialize the database
+        bookmarkDatabase = BookmarkDatabase.getDatabase(this);
 
+        // Retrieve data from the intent
+        Intent intent = getIntent();
+        String bookmarkName = intent.getStringExtra("bookmark_name");
+        int bookmarkPosition = intent.getIntExtra("bookmark_point", 0);
 
-        // Get the list of songs from SongsUtil
+        // Get the list of songs
         songList = SongsUtil.getRawSongList(this);
-        currentIndex = getIntent().getIntExtra("SONG_POSITION", 0);
+
+        // Find the current song index
+        currentIndex = findSong(bookmarkName);
 
         if (currentIndex >= 0 && currentIndex < songList.size()) {
-            playCurrentSong();
+            playCurrentSong(bookmarkPosition);
             setUpButtons();
             setUpSeekBar();
+            setUpBookmarkClickListener();
         }
-        onBookmarkClickListener();
     }
 
-    private void playCurrentSong() {
+    //search for a specific song
+    private int findSong(String songName) {
+        for (int i = 0; i < songList.size(); i++) {
+            if (songList.get(i).getName().equals(songName)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+    //int i = 0 represents the current index in the songList
+    // i++ This moves to the next song in the list.
+
+    private void playCurrentSong(int startPosition) {
         if (currentIndex >= 0 && currentIndex < songList.size()) {
             if (mediaPlayer != null) {
                 mediaPlayer.release();
@@ -64,8 +82,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
             if (mediaPlayer != null) {
                 mediaPlayer.start();
                 binding.songTitleTextView.setText(currentSong.getName());
-
-                // Update SeekBar max value and time display after mediaPlayer starts
+                mediaPlayer.seekTo(startPosition);
                 SeekBar seekBar = binding.mediaPlayerseekBar;
                 seekBar.setMax(mediaPlayer.getDuration());
                 updateTimes();
@@ -93,14 +110,14 @@ public class MediaPlayerActivity extends AppCompatActivity {
         previousButton.setOnClickListener(view -> {
             if (currentIndex > 0) {
                 currentIndex--;
-                playCurrentSong();
+                playCurrentSong(0);
             }
         });
 
         nextButton.setOnClickListener(view -> {
             if (currentIndex < songList.size() - 1) {
                 currentIndex++;
-                playCurrentSong();
+                playCurrentSong(0);
             }
         });
     }
@@ -116,8 +133,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
     }
 
     private String formatTime(int milliseconds) {
-        int minutes = (milliseconds / 1000) / 60; //get 1 second
-       // int hour=(milliseconds/(1000*60*60))%24;
+        int minutes = (milliseconds / 1000) / 60;
         int seconds = (milliseconds / 1000) % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
@@ -126,7 +142,6 @@ public class MediaPlayerActivity extends AppCompatActivity {
         SeekBar seekBar = binding.mediaPlayerseekBar;
         handler = new Handler();
 
-        // Runnable to update the SeekBar and time display
         updateSeekBar = new Runnable() {
             @Override
             public void run() {
@@ -163,26 +178,25 @@ public class MediaPlayerActivity extends AppCompatActivity {
             }
         });
 
-        // Start updating the SeekBar and time display
         handler.post(updateSeekBar);
     }
 
-
-    private  void onBookmarkClickListener(){
+    private void setUpBookmarkClickListener() {
         binding.imageViewBookMark.setOnClickListener(view -> {
-            MusicPlayerDataClass currentSong = songList.get(currentIndex);
-            String title = currentSong.getName();
-            int bookmarkposition=mediaPlayer.getCurrentPosition();
-            BookmarkEntity bookmarkEntity=new BookmarkEntity(title,bookmarkposition);
-            Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkposition);
-            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Bookmark added: " + title, Toast.LENGTH_SHORT).show());
-            Executors.newSingleThreadExecutor().execute(() -> {
-                bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
-                Log.d("Bookmark", "Bookmark inserted into database");
-            });
+            if (mediaPlayer != null) {
+                MusicPlayerDataClass currentSong = songList.get(currentIndex);
+                String title = currentSong.getName();
+                int bookmarkPosition = mediaPlayer.getCurrentPosition();
+                BookmarkEntity bookmarkEntity = new BookmarkEntity(title, bookmarkPosition);
+                Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkPosition);
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Bookmark added: " + title, Toast.LENGTH_SHORT).show());
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
+                    Log.d("Bookmark", "Bookmark inserted into database");
+                });
+            }
         });
     }
-
 
     @Override
     protected void onPause() {

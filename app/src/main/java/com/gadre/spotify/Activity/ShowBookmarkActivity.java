@@ -2,6 +2,7 @@ package com.gadre.spotify.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ShowBookmarkActivity extends AppCompatActivity {
+public class ShowBookmarkActivity extends AppCompatActivity implements BookmarkAdapter.OnSongClickListener {
 
     private ActivityShowBookmarkBinding binding;
     private BookmarkDAO bookmarkDAO;
@@ -42,7 +43,7 @@ public class ShowBookmarkActivity extends AppCompatActivity {
         bookmarkDAO = bookmarkDatabase.bookmarkDAO();
 
         // Initialize RecyclerView and Adapter
-        bookmarkAdapter = new BookmarkAdapter(new ArrayList<>());
+        bookmarkAdapter = new BookmarkAdapter(new ArrayList<>(),this);
         binding.showBookmarkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.showBookmarkRecyclerView.setAdapter(bookmarkAdapter);
 
@@ -70,6 +71,13 @@ public class ShowBookmarkActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSongClick(BookmarkEntity bookmarkEntity) {
+        Intent intent = new Intent(ShowBookmarkActivity.this, MediaPlayerActivity.class);
+        intent.putExtra("bookmark_name", bookmarkEntity.getTitle());
+        intent.putExtra("bookmark_point", bookmarkEntity.getBookmarkposition());
+        startActivity(intent);
+    }
 }
 
 

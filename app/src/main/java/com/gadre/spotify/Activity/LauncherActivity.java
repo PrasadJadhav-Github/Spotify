@@ -5,12 +5,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.gadre.spotify.OtherClasses.LoadingDialog;
-import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -42,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
         });
 
         binding.imageViewMediaPlayer.setOnClickListener(v -> {
-            Intent intent = new Intent(LauncherActivity.this, ActivityExternalMediaPlayer.class);
+            Intent intent = new Intent(LauncherActivity.this, ActivityFetchExternalSongs.class);
             startActivity(intent);
             Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
         });

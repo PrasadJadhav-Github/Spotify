@@ -19,7 +19,7 @@ import com.gadre.spotify.databinding.ActivityExternalMediaPlayerBinding;
 
 import java.util.List;
 
-public class ActivityExternalMediaPlayer extends AppCompatActivity implements ExternalMediaPlayerAdapter.OnExternalSongClickListener {
+public class ActivityFetchExternalSongs extends AppCompatActivity implements ExternalMediaPlayerAdapter.OnExternalSongClickListener {
 
     private ActivityExternalMediaPlayerBinding binding;
     private MediaStoreManager mediaStoreManager;
@@ -66,7 +66,7 @@ public class ActivityExternalMediaPlayer extends AppCompatActivity implements Ex
 
     @Override
     public void onSongClick(AudioFileDataClass audioData) {
-        Intent intent = new Intent(ActivityExternalMediaPlayer.this, PlayMusicFromExternalDevice.class);
+        Intent intent = new Intent(ActivityFetchExternalSongs.this, PlayMusicFromExternalDevice.class);
         intent.putExtra("SONG_URI",audioData.getUri() );
         intent.putExtra("SONG_NAME", audioData.getName());
         startActivity(intent);
