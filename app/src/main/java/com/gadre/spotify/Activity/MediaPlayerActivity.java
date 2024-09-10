@@ -117,7 +117,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
     private String formatTime(int milliseconds) {
         int minutes = (milliseconds / 1000) / 60; //get 1 second
-        int hour=(milliseconds/(1000*60*60))%24;
+       // int hour=(milliseconds/(1000*60*60))%24;
         int seconds = (milliseconds / 1000) % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }

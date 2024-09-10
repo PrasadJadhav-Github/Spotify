@@ -32,7 +32,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public void onBindViewHolder(@NonNull BookmarkAdapter.BookmarkViewHolder holder, int position) {
         BookmarkEntity bookmarkEntity=bookmarkEntityList.get(position);
        holder.bookmarkTextView.setText(bookmarkEntity.getTitle());
-      // holder.textViewDuration.setText(bookmarkEntity.getBookmarkposition());
+      holder.textViewDuration.setText(formatTime(bookmarkEntity.getBookmarkposition()));
 
     }
 
@@ -48,6 +48,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
         bookmarkEntityList.clear();
         bookmarkEntityList.addAll(newBookmarks);
         notifyDataSetChanged();
+    }
+
+    private String formatTime(int milliseconds) {
+        int minutes = (milliseconds / 1000) / 60; //get 1 second
+        int seconds = (milliseconds / 1000) % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
 
