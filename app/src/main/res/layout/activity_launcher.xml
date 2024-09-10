@@ -203,6 +203,28 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewBookmarkTab"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBookmarkTab" />
 
+    <ImageView
+        android:id="@+id/imageViewHighlightTab"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/highlight_tab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewBookmarkTab"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationTab" />
+
+    <TextView
+        android:id="@+id/textViewHighlightTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Highlight"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewHighlightTab"
+        app:layout_constraintStart_toStartOf="@+id/imageViewHighlightTab"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHighlightTab" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

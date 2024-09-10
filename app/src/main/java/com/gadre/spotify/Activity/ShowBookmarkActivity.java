@@ -9,12 +9,10 @@ import android.os.Looper;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gadre.spotify.Adapter.BookmarkAdapter;
-import com.gadre.spotify.R;
-import com.gadre.spotify.RoomDatabase_DAO.BookmarkDAO;
+import com.gadre.spotify.RoomDatabase_DAO.BookmarkSongDAO;
 import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 import com.gadre.spotify.databinding.ActivityShowBookmarkBinding;
@@ -27,7 +25,7 @@ import java.util.concurrent.Executors;
 public class ShowBookmarkActivity extends AppCompatActivity implements BookmarkAdapter.OnSongClickListener {
 
     private ActivityShowBookmarkBinding binding;
-    private BookmarkDAO bookmarkDAO;
+    private BookmarkSongDAO bookmarkDAO;
     private BookmarkAdapter bookmarkAdapter;
     private ExecutorService executorService;
     private Handler mainHandler;

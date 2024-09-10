@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Dao
-public interface BookmarkDAO {
+public interface BookmarkSongDAO {
 
 
     @Insert

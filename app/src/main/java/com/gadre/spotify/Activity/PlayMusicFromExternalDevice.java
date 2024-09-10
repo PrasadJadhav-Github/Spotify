@@ -16,10 +16,12 @@ import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
 import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityPlayMusicFromExternalDeviceBinding;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -44,8 +46,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        //Notification Cannel for manage notification
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {//This line checks if the Android device's API level
+        // Create Notification Channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "Play Music",
@@ -55,8 +57,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
-
-        currentSongIndex = getIntent().getIntExtra("SONG_INDEX", 0);
+        currentSongIndex = getIntent().getIntExtra("SONG_POSITION", 0);
         mediaPlayer = new MediaPlayer();
 
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
@@ -86,14 +87,15 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                 String songName = currentSong.getName();
                 binding.songTitleTextView.setText(songName);
 
+                // Set SeekBar max value after mediaPlayer has prepared
                 binding.externalMediaPlayerseekBar.setMax(mediaPlayer.getDuration());
+
                 showNotification(songName);
+                updateTimes();
             }
         }
     }
 
-
-     //display notification when song is playing
     private void showNotification(String songTitle) {
         PendingIntent prevIntent = PendingIntent.getBroadcast(this, 0, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent playPauseIntent = PendingIntent.getBroadcast(this, 1, new Intent(), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
@@ -112,11 +114,10 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
     }
 
-
     private void setUpButtons() {
         ImageButton playPauseButton = binding.externalDevicePlayPauseButton;
         ImageButton nextSongButton = binding.externalDeviceNextButton;
-        ImageButton prevousSongButton = binding.externalDevicePreviousButton;
+        ImageButton previousSongButton = binding.externalDevicePreviousButton;
 
         playPauseButton.setOnClickListener(view -> {
             if (mediaPlayer != null) {
@@ -143,7 +144,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             }
         });
 
-        prevousSongButton.setOnClickListener(view -> {
+        previousSongButton.setOnClickListener(view -> {
             if (externalsongList != null && !externalsongList.isEmpty()) {
                 if (currentSongIndex > 0) {
                     currentSongIndex--;
@@ -156,14 +157,35 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             }
         });
     }
+
+    private  void  startTime(){
+
+    }
+
+    private  void  endTime(){
+
+    }
+
+    private void updateTimes() {
+        if (mediaPlayer != null) {
+            int currentPosition = mediaPlayer.getCurrentPosition();
+            int duration = mediaPlayer.getDuration();
+
+            binding.startTimeTextView.setText(formatTime(currentPosition));
+            binding.endTimeTextView.setText(formatTime(duration));
+        }
+    }
+
+    private String formatTime(int milliseconds) {
+        int minutes = (milliseconds / 1000) / 60;
+        int seconds = (milliseconds / 1000) % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+
     private void setUpSeekBar() {
         SeekBar seekBar = binding.externalMediaPlayerseekBar;
         handler = new Handler();
-
-        // Set the max value for the SeekBar based on the media duration
-        if (mediaPlayer != null) {
-            seekBar.setMax(mediaPlayer.getDuration());
-        }
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -195,7 +217,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             public void run() {
                 if (mediaPlayer != null) {
                     int currentPosition = mediaPlayer.getCurrentPosition();
-                    seekBar.setProgress(currentPosition);
+                    binding.externalMediaPlayerseekBar.setProgress(currentPosition);
+                    updateTimes();
                     handler.postDelayed(this, 1000); // Update every second
                 }
             }
@@ -204,6 +227,11 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     }
 
 
+    private  void  setUpHighlightClickListener(){
+        binding.imageViewHighlight.setOnClickListener(view -> {
+
+        });
+    }
 
     @Override
     protected void onPause() {

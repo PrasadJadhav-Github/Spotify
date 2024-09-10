@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MediaPlayerActivity">
 
-
+    <!-- Album Art ImageView -->
     <ImageView
         android:id="@+id/externalMediaPlayerImageView"
         android:layout_width="0dp"
@@ -19,15 +19,15 @@
         app:layout_constraintBottom_toTopOf="@+id/songTitleTextView"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Song Title TextView -->
     <TextView
         android:id="@+id/songTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="16dp"
         android:text="Song Title"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -36,6 +36,33 @@
         app:layout_constraintTop_toBottomOf="@+id/externalMediaPlayerImageView"
         app:layout_constraintVertical_bias="0.2" />
 
+    <!-- Start Time TextView -->
+    <TextView
+        android:id="@+id/startTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songTitleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/externalMediaPlayerseekBar"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- End Time TextView -->
+    <TextView
+        android:id="@+id/endTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songTitleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/externalMediaPlayerseekBar"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- SeekBar -->
     <SeekBar
         android:id="@+id/externalMediaPlayerseekBar"
         android:layout_width="0dp"
@@ -44,20 +71,36 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonControls"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/songTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/songTitleTextView"
+        android:layout_marginTop="16dp" />
+
+
+    <!-- Highlight ImageView -->
+
+    <!-- Button Controls LinearLayout -->
+
+
+
+    <ImageView
+        android:id="@+id/imageViewHighlight"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:src="@drawable/highlight"
+        app:layout_constraintBottom_toTopOf="@+id/buttonControls"
+        app:layout_constraintTop_toBottomOf="@+id/externalMediaPlayerseekBar" />
 
     <LinearLayout
         android:id="@+id/buttonControls"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_marginBottom="56dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Previous Button -->
         <ImageButton
             android:id="@+id/externalDevicePreviousButton"
             android:layout_width="wrap_content"
@@ -65,6 +108,7 @@
             android:contentDescription="Previous"
             android:src="@android:drawable/ic_media_previous" />
 
+        <!-- Play/Pause Button -->
         <ImageButton
             android:id="@+id/externalDevicePlayPauseButton"
             android:layout_width="wrap_content"
@@ -72,6 +116,7 @@
             android:contentDescription="Play/Pause"
             android:src="@android:drawable/ic_media_pause" />
 
+        <!-- Next Button -->
         <ImageButton
             android:id="@+id/externalDeviceNextButton"
             android:layout_width="wrap_content"

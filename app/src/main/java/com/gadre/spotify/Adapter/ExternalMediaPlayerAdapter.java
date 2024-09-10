@@ -21,7 +21,7 @@ public class ExternalMediaPlayerAdapter  extends RecyclerView.Adapter<ExternalMe
     private  final  OnExternalSongClickListener onExternalSongClickListener;
 
     public interface OnExternalSongClickListener {
-        void onSongClick(AudioFileDataClass audioData);
+        void onSongClick(int position);
     }
 
     public ExternalMediaPlayerAdapter(List<AudioFileDataClass> audioFileDataClassList, OnExternalSongClickListener onExternalSongClickListener) {
@@ -44,8 +44,9 @@ public class ExternalMediaPlayerAdapter  extends RecyclerView.Adapter<ExternalMe
 
         AudioFileDataClass audioFile = audioFileDataClassList.get(position);
         holder.songNameTextView.setText(audioFile.getName());
+
         holder.songNameTextView.setOnClickListener(view -> {
-            onExternalSongClickListener.onSongClick(audioFile);
+            onExternalSongClickListener.onSongClick(position);
 
         });
     }
