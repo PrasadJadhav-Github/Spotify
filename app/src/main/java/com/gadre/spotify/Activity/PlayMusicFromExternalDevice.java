@@ -70,11 +70,13 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
-        currentSongIndex = getIntent().getIntExtra("SONG_POSITION", 0);
+      //  currentSongIndex = getIntent().getIntExtra("SONG_POSITION", 0);
+        String songName = getIntent().getStringExtra("SONG_NAME");
         highlightStart = getIntent().getIntExtra("startPoint", -1);
         highlightEnd = getIntent().getIntExtra("endPoint", -1);
         mediaPlayer = new MediaPlayer();
 
+        currentSongIndex = findSong(songName);
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
             try {
                 playCurrentSong();
@@ -85,6 +87,15 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             setUpSeekBar();
             buttonStartHighlight();
         }
+    }
+
+    private int findSong(String songName) {
+        for (int i = 0; i < externalsongList.size(); i++) {
+            if (externalsongList.get(i).getName().equals(songName)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void playCurrentSong() throws IOException {
