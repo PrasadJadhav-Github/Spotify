@@ -187,6 +187,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
                 MusicPlayerDataClass currentSong = songList.get(currentIndex);
                 String title = currentSong.getName();
                 int bookmarkPosition = mediaPlayer.getCurrentPosition();
+
                 BookmarkEntity bookmarkEntity = new BookmarkEntity(title, bookmarkPosition);
                 Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkPosition);
                 runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Bookmark added: " + title, Toast.LENGTH_SHORT).show());

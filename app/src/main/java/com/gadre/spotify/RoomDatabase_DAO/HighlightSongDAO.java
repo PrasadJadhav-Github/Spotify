@@ -1,5 +1,6 @@
 package com.gadre.spotify.RoomDatabase_DAO;
 
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -8,6 +9,7 @@ import com.gadre.spotify.RoomDatabase_Entity.HighlightSongEntity;
 
 import java.util.List;
 
+@Dao
 public interface HighlightSongDAO {
 
     @Insert
@@ -16,6 +18,8 @@ public interface HighlightSongDAO {
     @Query("SELECT * FROM Highlight")
     List<HighlightSongEntity> getAllHighlightSong();
 
-    @Query("SELECT * FROM Highlight WHERE title = :title")
-    BookmarkEntity getHighlightSongByTitle(String title);
+//    @Query("SELECT * FROM Highlight WHERE title = :title")
+//    BookmarkEntity getHighlightSongByTitle(String title);
+
+
 }

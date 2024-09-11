@@ -11,19 +11,25 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
+import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
+import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
+import com.gadre.spotify.RoomDatabase_Entity.HighlightSongEntity;
 import com.gadre.spotify.databinding.ActivityPlayMusicFromExternalDeviceBinding;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class PlayMusicFromExternalDevice extends AppCompatActivity {
     private ActivityPlayMusicFromExternalDeviceBinding binding;
@@ -34,6 +40,9 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     private NotificationManager notificationManager;
     private Handler handler;
     private Runnable updateSeekBar;
+    private BookmarkDatabase bookmarkDatabase;
+    private int highlightStart = -1;
+    private int highlightEnd = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,10 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
 
         MediaStoreManager mediaStoreManager = new MediaStoreManager(getContentResolver());
         externalsongList = mediaStoreManager.getAudioFiles();
+
+        // Initialize the database
+        bookmarkDatabase = BookmarkDatabase.getDatabase(this);
+
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -58,6 +71,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         }
 
         currentSongIndex = getIntent().getIntExtra("SONG_POSITION", 0);
+        highlightStart = getIntent().getIntExtra("startPoint", -1);
+        highlightEnd = getIntent().getIntExtra("endPoint", -1);
         mediaPlayer = new MediaPlayer();
 
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
@@ -68,6 +83,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             }
             setUpButtons();
             setUpSeekBar();
+            buttonStartHighlight();
         }
     }
 
@@ -158,13 +174,42 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         });
     }
 
-    private  void  startTime(){
+    private void buttonStartHighlight() {
+        binding.imageViewStartHighlight.setOnClickListener(view -> {
+            if (mediaPlayer != null) {
+                if (highlightStart == -1) {
+                    // Start highlighting
+                    highlightStart = mediaPlayer.getCurrentPosition();
+                    Toast.makeText(this, "Starting highlight at " + formatTime(highlightStart), Toast.LENGTH_SHORT).show();
+                } else {
+                    // End highlighting
+                    highlightEnd = mediaPlayer.getCurrentPosition();
+                    Toast.makeText(this, "Highlight ended at " + formatTime(highlightEnd), Toast.LENGTH_SHORT).show();
+                    saveHighlightInDatabase();
+                    highlightStart = -1;
+                }
 
+            }
+        });
     }
 
-    private  void  endTime(){
 
+    private  void  saveHighlightInDatabase(){
+        if (highlightStart != -1 && highlightEnd != -1){
+            AudioFileDataClass currentSong = externalsongList.get(currentSongIndex);
+            String title =currentSong.getName();
+            HighlightSongEntity highlightSongEntity = new HighlightSongEntity(title,highlightStart,highlightEnd);
+            Log.d("Highligt", "Inserting Highligt with title: " + title + " at start point: " + highlightStart + " end at"+ highlightEnd);
+            Executors.newSingleThreadExecutor().execute(() -> {
+                bookmarkDatabase.highlightSongDAO().insertHighlightPart(highlightSongEntity);
+                Log.d("Highlight", "Highlight inserted into database");
+            });
+        }else {
+            Log.d("Highlight", "Fail to insert into database");
+        }
     }
+
+
 
     private void updateTimes() {
         if (mediaPlayer != null) {
@@ -227,11 +272,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     }
 
 
-    private  void  setUpHighlightClickListener(){
-        binding.imageViewHighlight.setOnClickListener(view -> {
 
-        });
-    }
 
     @Override
     protected void onPause() {

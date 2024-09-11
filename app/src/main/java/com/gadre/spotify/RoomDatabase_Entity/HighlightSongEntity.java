@@ -15,18 +15,17 @@ public class HighlightSongEntity {
     private String title;
 
     @ColumnInfo(name = "startTime")
-    private long startTime;
+    private int startTime;
 
     @ColumnInfo(name = "endTime")
-    private long endTime;
+    private int endTime;
 
-    public HighlightSongEntity(int id, String title, long startTime, long endTime) {
-        this.id = id;
+
+    public HighlightSongEntity(String title, int startTime, int endTime) {
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
 
     public int getId() {
         return id;
@@ -44,19 +43,19 @@ public class HighlightSongEntity {
         this.title = title;
     }
 
-    public long getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 }

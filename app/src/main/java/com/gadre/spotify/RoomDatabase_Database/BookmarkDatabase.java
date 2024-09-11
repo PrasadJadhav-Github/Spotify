@@ -7,11 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.gadre.spotify.RoomDatabase_DAO.BookmarkSongDAO;
+import com.gadre.spotify.RoomDatabase_DAO.HighlightSongDAO;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
+import com.gadre.spotify.RoomDatabase_Entity.HighlightSongEntity;
 
-@Database(entities = {BookmarkEntity.class}, version = 1)
+@Database(entities = {BookmarkEntity.class,HighlightSongEntity.class}, version = 2)
 public abstract class BookmarkDatabase extends RoomDatabase {
     public abstract BookmarkSongDAO bookmarkDAO();
+    public  abstract HighlightSongDAO highlightSongDAO();
 
     private static final String DB_NAME = "Bookmark";
     // object of current class
@@ -23,6 +26,7 @@ public abstract class BookmarkDatabase extends RoomDatabase {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                                     BookmarkDatabase.class, DB_NAME)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

@@ -80,13 +80,13 @@
     <!-- Button Controls LinearLayout -->
 
 
-
     <ImageView
-        android:id="@+id/imageViewHighlight"
-        android:layout_width="40dp"
+        android:id="@+id/imageViewStartHighlight"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:src="@drawable/highlight"
         app:layout_constraintBottom_toTopOf="@+id/buttonControls"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/externalMediaPlayerseekBar" />
 
     <LinearLayout
