@@ -49,7 +49,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
         binding = ActivityPlayMusicFromExternalDeviceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mediaPlayer = new MediaPlayer();
+
         MediaStoreManager mediaStoreManager = new MediaStoreManager(getContentResolver());
         externalsongList = mediaStoreManager.getAudioFiles();
         bookmarkDatabase = BookmarkDatabase.getDatabase(this);
@@ -73,8 +73,9 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             highlightStart = intent.getIntExtra("startPoint", 0);
             highlightEnd = intent.getIntExtra("endPoint", 0);
             currentSongIndex = findSong(songName);
-        }
 
+        }
+        mediaPlayer = new MediaPlayer();
 
         if (currentSongIndex >= 0 && currentSongIndex < externalsongList.size()) {
             try {
@@ -110,27 +111,30 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                 mediaPlayer.reset();
 
 
-            mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build());
-            mediaPlayer.setDataSource(this, currentSong.getUri());
-            mediaPlayer.prepare();
+                mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build());
+                mediaPlayer.setDataSource(this, currentSong.getUri());
+                mediaPlayer.prepare();
 
-            // Set the start position
-            //This is used from a specific point if a highlight has been set.
-            if (highlightStart > 0) {
-                mediaPlayer.seekTo(highlightStart);
-            }
+                // Set the start position
+                //This is used from a specific point if a highlight has been set.
+                if (highlightStart > 0) {
+                    mediaPlayer.seekTo(highlightStart);
+                }
                 mediaPlayer.start();
+                binding.songTitleTextView.setText(currentSong.getName());
 
+                if (highlightEnd > 0) {
+                    binding.externalMediaPlayerseekBar.setMax(mediaPlayer.getDuration());
 
-            binding.songTitleTextView.setText(currentSong.getName());
-            binding.externalMediaPlayerseekBar.setMax(highlightEnd);
-            binding.endTimeTextView.setText(formatTime(highlightEnd));
+                    binding.endTimeTextView.setText(formatTime(highlightEnd));
 
-            showNotification(currentSong.getName());
-            updateTimes();
+                }
+
+                showNotification(currentSong.getName());
+                updateTimes();
             }
         }
     }
@@ -254,7 +258,8 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && mediaPlayer != null) {
-                    if (progress >= highlightEnd) {
+
+                    if (progress >= highlightEnd && highlightEnd>0) {
                         mediaPlayer.seekTo(highlightEnd);
                     } else {
                         mediaPlayer.seekTo(progress);
@@ -272,7 +277,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (mediaPlayer != null) {
-                    if (seekBar.getProgress() >= highlightEnd) {
+                    if (seekBar.getProgress() >= highlightEnd && highlightEnd >0) {
                         mediaPlayer.seekTo(highlightEnd);
                         mediaPlayer.pause();
                     } else {
@@ -288,7 +293,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             public void run() {
                 if (mediaPlayer != null) {
                     int currentPosition = mediaPlayer.getCurrentPosition();
-                    if (currentPosition >= highlightEnd) {
+                    if (currentPosition >= highlightEnd && highlightEnd >0) {
                         mediaPlayer.seekTo(highlightEnd);
                         mediaPlayer.pause();
                     }
