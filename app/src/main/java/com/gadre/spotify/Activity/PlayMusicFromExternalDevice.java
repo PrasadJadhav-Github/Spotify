@@ -127,9 +127,10 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
                 binding.songTitleTextView.setText(currentSong.getName());
 
                 if (highlightEnd > 0) {
-                    binding.externalMediaPlayerseekBar.setMax(mediaPlayer.getDuration());
-
                     binding.endTimeTextView.setText(formatTime(highlightEnd));
+                    binding.externalMediaPlayerseekBar.setMax(highlightEnd);
+                }else {
+                    binding.externalMediaPlayerseekBar.setMax(mediaPlayer.getDuration());
 
                 }
 
