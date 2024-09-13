@@ -63,15 +63,6 @@ public class ActivityFetchExternalSongs extends AppCompatActivity implements Ext
                 }
             });
 
-
-//    @Override
-//    public void onSongClick(AudioFileDataClass audioData) {
-//        Intent intent = new Intent(ActivityFetchExternalSongs.this, PlayMusicFromExternalDevice.class);
-//        intent.putExtra("SONG_URI",audioData.getUri() );
-//        intent.putExtra("SONG_NAME", audioData.getName());
-//        startActivity(intent);
-//    }
-
     @Override
     public void onSongClick(int position) {
         Intent intent = new Intent(ActivityFetchExternalSongs.this, PlayMusicFromExternalDevice.class);

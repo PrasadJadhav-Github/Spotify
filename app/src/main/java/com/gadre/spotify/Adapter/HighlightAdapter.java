@@ -40,7 +40,7 @@ public class HighlightAdapter extends RecyclerView.Adapter<HighlightAdapter.High
         HighlightSongEntity highlightSongEntity = highlightSongEntityList.get(position);
         holder.highlightTextView.setText(highlightSongEntity.getTitle());
         holder.startPointTextView.setText("Start Time = "+formatTime( highlightSongEntity.getStartTime()));
-        holder.endPointTextView.setText("Start Time = "+formatTime(highlightSongEntity.getEndTime()));
+        holder.endPointTextView.setText("End Time = "+formatTime(highlightSongEntity.getEndTime()));
 
         holder.highlightTextView.setOnClickListener(view -> {
             onSongClickListener.onSongClick(highlightSongEntity);

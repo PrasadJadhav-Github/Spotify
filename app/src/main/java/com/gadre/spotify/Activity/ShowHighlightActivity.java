@@ -74,10 +74,14 @@ public class ShowHighlightActivity extends AppCompatActivity implements Highligh
 
     @Override
     public void onSongClick(HighlightSongEntity highlightSongEntity) {
-        Intent intent = new Intent(ShowHighlightActivity.this, MediaPlayerActivity.class);
+        Intent intent = new Intent(ShowHighlightActivity.this, PlayMusicFromExternalDevice.class);
         intent.putExtra("name", highlightSongEntity.getTitle());
         intent.putExtra("startPoint", highlightSongEntity.getStartTime());
-        intent.putExtra("ensPoint", highlightSongEntity.getEndTime());
+        intent.putExtra("endPoint", highlightSongEntity.getEndTime());
         startActivity(intent);
+
+        Log.d("PlayMusic", "Song Name: ");
     }
+
+
 }

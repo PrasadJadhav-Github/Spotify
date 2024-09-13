@@ -41,8 +41,18 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
         // Retrieve data from the intent
         Intent intent = getIntent();
-        String bookmarkName = intent.getStringExtra("bookmark_name");
-        int bookmarkPosition = intent.getIntExtra("bookmark_point", 0);
+
+        String bookmarkName = null;
+        int bookmarkPosition = 0;
+
+        if (intent.hasExtra("SONG_POSITION")) {
+            currentIndex = intent.getIntExtra("SONG_POSITION", 0);
+        } else if (intent.hasExtra("bookmark_name")) {
+             bookmarkName = intent.getStringExtra("bookmark_name");
+             bookmarkPosition = intent.getIntExtra("bookmark_point", 0);
+        }
+
+
 
         // Get the list of songs
         songList = SongsUtil.getRawSongList(this);
