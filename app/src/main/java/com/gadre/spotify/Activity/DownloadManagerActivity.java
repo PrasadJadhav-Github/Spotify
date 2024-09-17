@@ -41,11 +41,9 @@ public class DownloadManagerActivity extends AppCompatActivity {
     }
 
     private  void  downloadImages(String fileName,String imageURL){
-
         try {
             DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
             Uri downloaduri=Uri.parse(imageURL);
-
 
             DownloadManager.Request request = new DownloadManager.Request(downloaduri);
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
