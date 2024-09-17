@@ -8,23 +8,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.gadre.spotify.Adapter.BookmarkAdapter;
 import com.gadre.spotify.Adapter.HighlightAdapter;
-import com.gadre.spotify.R;
 import com.gadre.spotify.RoomDatabase_DAO.HighlightSongDAO;
-import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
-import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
+import com.gadre.spotify.RoomDatabase_Database.Database;
 import com.gadre.spotify.RoomDatabase_Entity.HighlightSongEntity;
 import com.gadre.spotify.databinding.ActivityShowHighlightBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,8 +34,8 @@ public class ShowHighlightActivity extends AppCompatActivity implements Highligh
         binding=ActivityShowHighlightBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BookmarkDatabase bookmarkDatabase=BookmarkDatabase.getDatabase(this);
-        highlightSongDAO=bookmarkDatabase.highlightSongDAO();
+        Database database = Database.getDatabase(this);
+        highlightSongDAO= database.highlightSongDAO();
 
         // Initialize RecyclerView and Adapter
         highlightAdapter = new HighlightAdapter( this);

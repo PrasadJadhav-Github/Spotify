@@ -1,13 +1,11 @@
 package com.gadre.spotify.Activity;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.gadre.spotify.ModelClass.AudioFileDataClass;
 import com.gadre.spotify.OtherClasses.MediaStoreManager;
 import com.gadre.spotify.R;
-import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
+import com.gadre.spotify.RoomDatabase_Database.Database;
 import com.gadre.spotify.RoomDatabase_Entity.HighlightSongEntity;
 import com.gadre.spotify.databinding.ActivityPlayMusicFromExternalDeviceBinding;
 
@@ -39,7 +37,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
     private NotificationManager notificationManager;
     private Handler handler;
     private Runnable updateSeekBar;
-    private BookmarkDatabase bookmarkDatabase;
+    private Database database;
     private int highlightStart = 0;
     private int highlightEnd = currentSongIndex;
 
@@ -52,7 +50,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
 
         MediaStoreManager mediaStoreManager = new MediaStoreManager(getContentResolver());
         externalsongList = mediaStoreManager.getAudioFiles();
-        bookmarkDatabase = BookmarkDatabase.getDatabase(this);
+        database = Database.getDatabase(this);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -227,7 +225,7 @@ public class PlayMusicFromExternalDevice extends AppCompatActivity {
             HighlightSongEntity highlightSongEntity = new HighlightSongEntity(title, highlightStart, highlightEnd);
             Log.d("Highlight", "Inserting Highlight with title: " + title + " at start point: " + highlightStart + " end at " + highlightEnd);
             Executors.newSingleThreadExecutor().execute(() -> {
-                bookmarkDatabase.highlightSongDAO().insertHighlightPart(highlightSongEntity);
+                database.highlightSongDAO().insertHighlightPart(highlightSongEntity);
                 Log.d("Highlight", "Highlight inserted into database");
             });
         } else {

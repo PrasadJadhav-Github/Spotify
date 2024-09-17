@@ -12,8 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.gadre.spotify.ModelClass.MusicPlayerDataClass;
 import com.gadre.spotify.OtherClasses.SongsUtil;
-import com.gadre.spotify.R;
-import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
+import com.gadre.spotify.RoomDatabase_Database.Database;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 import com.gadre.spotify.databinding.ActivityMediaPlayerBinding;
 
@@ -28,7 +27,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
     private int currentIndex;
     private Handler handler;
     private Runnable updateSeekBar;
-    private BookmarkDatabase bookmarkDatabase;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Initialize the database
-        bookmarkDatabase = BookmarkDatabase.getDatabase(this);
+        database = Database.getDatabase(this);
 
         // Retrieve data from the intent
         Intent intent = getIntent();
@@ -202,7 +201,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
                 Log.d("Bookmark", "Inserting bookmark with title: " + title + " at position: " + bookmarkPosition);
                 runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Bookmark added: " + title, Toast.LENGTH_SHORT).show());
                 Executors.newSingleThreadExecutor().execute(() -> {
-                    bookmarkDatabase.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
+                    database.bookmarkDAO().insertBookmarkSong(bookmarkEntity);
                     Log.d("Bookmark", "Bookmark inserted into database");
                 });
             }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gadre.spotify.Adapter.BookmarkAdapter;
 import com.gadre.spotify.RoomDatabase_DAO.BookmarkSongDAO;
-import com.gadre.spotify.RoomDatabase_Database.BookmarkDatabase;
+import com.gadre.spotify.RoomDatabase_Database.Database;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 import com.gadre.spotify.databinding.ActivityShowBookmarkBinding;
 
@@ -37,8 +37,8 @@ public class ShowBookmarkActivity extends AppCompatActivity implements BookmarkA
         setContentView(binding.getRoot());
 
         // Initialize the database and DAO
-        BookmarkDatabase bookmarkDatabase = BookmarkDatabase.getDatabase(this);
-        bookmarkDAO = bookmarkDatabase.bookmarkDAO();
+        Database database = Database.getDatabase(this);
+        bookmarkDAO = database.bookmarkDAO();
 
         // Initialize RecyclerView and Adapter
         bookmarkAdapter = new BookmarkAdapter(new ArrayList<>(),this);

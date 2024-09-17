@@ -23,7 +23,6 @@ public class ActivityFetchExternalSongs extends AppCompatActivity implements Ext
 
     private ActivityExternalMediaPlayerBinding binding;
     private MediaStoreManager mediaStoreManager;
- //   private RecyclerView recyclerView;
     private ExternalMediaPlayerAdapter audioFileAdapter;
 
     @Override

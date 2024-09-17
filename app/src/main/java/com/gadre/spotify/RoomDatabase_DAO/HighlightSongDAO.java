@@ -18,8 +18,7 @@ public interface HighlightSongDAO {
     @Query("SELECT * FROM Highlight")
     List<HighlightSongEntity> getAllHighlightSong();
 
-//    @Query("SELECT * FROM Highlight WHERE title = :title")
-//    BookmarkEntity getHighlightSongByTitle(String title);
+
 
 
 }
