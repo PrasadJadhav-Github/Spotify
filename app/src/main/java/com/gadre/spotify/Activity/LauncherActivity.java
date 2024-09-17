@@ -38,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
             });
 
             binding.imageViewMediaPlayer.setOnClickListener(v -> {
-                Intent intent = new Intent(LauncherActivity.this, ActivityFetchExternalSongs.class);
+                Intent intent = new Intent(LauncherActivity.this, FetchExternalSongsActivity.class);
                 startActivity(intent);
                 Toast.makeText(LauncherActivity.this, "Opening  Media Player ", Toast.LENGTH_SHORT).show();
             });
@@ -83,6 +83,13 @@ public class LauncherActivity extends AppCompatActivity {
                 Intent intent = new Intent(LauncherActivity.this, ShowBookmarkActivity.class);
                 startActivity(intent);
                 Toast.makeText(LauncherActivity.this, "Opening  Bookmark Tab ", Toast.LENGTH_SHORT).show();
+            });
+
+
+            binding.imageViewDownload.setOnClickListener(view -> {
+                Intent intent = new Intent(LauncherActivity.this, DownloadManagerActivity.class);
+                startActivity(intent);
+                Toast.makeText(LauncherActivity.this, "Opening  Download Manager ", Toast.LENGTH_SHORT).show();
             });
 
             binding.imageViewDateFormatTab.setOnClickListener(view -> {
