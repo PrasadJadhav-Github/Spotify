@@ -118,7 +118,7 @@ public class DownloadManagerActivity extends AppCompatActivity {
             runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "File downloaded: " + fileName, Toast.LENGTH_SHORT).show());
         } catch (Exception e) {
             e.printStackTrace();
-            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "Failed to download: " + imageURL, Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "Failed to download!!! : " +"check out link "+ imageURL, Toast.LENGTH_SHORT).show());
         }
         }).start();
 
