@@ -53,5 +53,13 @@
         android:text="Download Multiple File"
         app:layout_constraintTop_toBottomOf="@+id/downloadSingleFileButton" />
 
+    <Button
+        android:id="@+id/downloadFileUsingHttpClientButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/urlEditText"
+        android:layout_margin="20dp"
+        android:text="Download File Using Http Client"
+        app:layout_constraintTop_toBottomOf="@+id/downloadMultipleFileButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

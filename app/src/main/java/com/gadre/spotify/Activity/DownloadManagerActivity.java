@@ -14,13 +14,20 @@ import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityDownloadManagerBinding;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class DownloadManagerActivity extends AppCompatActivity {
 
     private ActivityDownloadManagerBinding binding;
     private LoadingDialog loadingDialog;
+    private OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,7 @@ public class DownloadManagerActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(this);
         downloadMultipleFileButtonListener();
         downloadSingleFileListener();
+        downloadImagesUsingHttpClientListener();
     }
 
     private void downloadMultipleFileButtonListener() {
@@ -44,10 +52,10 @@ public class DownloadManagerActivity extends AppCompatActivity {
         });
     }
 
-    private void downloadSingleFileListener(){
+    private void downloadSingleFileListener() {
         binding.downloadSingleFileButton.setOnClickListener(view -> {
             String urls = binding.urlEditText.getText().toString();
-            downloadImages(urls.trim());
+            downloadImages(urls);
         });
     }
 
@@ -72,4 +80,48 @@ public class DownloadManagerActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to download: " + imageURL, Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private void downloadImagesUsingHttpClientListener() {
+        binding.downloadFileUsingHttpClientButton.setOnClickListener(view -> {
+
+            String urls = binding.urlEditText.getText().toString();
+            try {
+                downloadImagesUsingHttpClient(urls);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+    private void downloadImagesUsingHttpClient(String imageURL) throws Exception  {
+        new Thread(() ->{
+        try {
+            String fileName = Uri.parse(imageURL).getLastPathSegment();
+            File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName);
+
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(imageURL).build();
+            Response response = client.newCall(request).execute();
+
+
+            if (!response.isSuccessful()) {
+                throw new IOException("Failed to download file: " + response);
+            }
+
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            fos.write(response.body().bytes());
+            fos.close();
+
+
+            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "File downloaded: " + fileName, Toast.LENGTH_SHORT).show());
+        } catch (Exception e) {
+            e.printStackTrace();
+            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "Failed to download: " + imageURL, Toast.LENGTH_SHORT).show());
+        }
+        }).start();
+
+    }
+
 }
