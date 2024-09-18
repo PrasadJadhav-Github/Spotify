@@ -28,16 +28,26 @@ public class DownloadManagerActivity extends AppCompatActivity {
         binding = ActivityDownloadManagerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadingDialog = new LoadingDialog(this);
-        downloadButtonListener();
+        downloadMultipleFileButtonListener();
+        downloadSingleFileListener();
     }
 
-    private void downloadButtonListener() {
-        binding.downloadButton.setOnClickListener(view -> {
+    private void downloadMultipleFileButtonListener() {
+        binding.downloadMultipleFileButton.setOnClickListener(view -> {
             String urls = binding.urlEditText.getText().toString();
-            List<String> urlList = Arrays.asList(urls.split(","));// Arrays.asList() method in Java is used to convert an array into a List
+            // Arrays.asList() method in Java is used to convert an array into a List
+            List<String> urlList = Arrays.asList(urls.split(","));
+            //for loop iterate over arraylist to find image url
             for (String url : urlList) {
-                downloadImages(url.trim());
+                downloadImages(url.trim());//trim() remove whitespaces
             }
+        });
+    }
+
+    private void downloadSingleFileListener(){
+        binding.downloadSingleFileButton.setOnClickListener(view -> {
+            String urls = binding.urlEditText.getText().toString();
+            downloadImages(urls.trim());
         });
     }
 

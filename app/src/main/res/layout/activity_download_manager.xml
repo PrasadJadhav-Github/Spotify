@@ -25,7 +25,7 @@
     <EditText
         android:id="@+id/urlEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:hint="Enter file URL"
         android:layout_marginTop="20dp"
         android:padding="20dp"
@@ -34,15 +34,24 @@
          />
 
     <Button
-        android:id="@+id/downloadButton"
+        android:id="@+id/downloadSingleFileButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/urlEditText"
         android:layout_marginTop="15dp"
         android:layout_margin="20dp"
-        android:text="Download"
+        android:text="Download Single File"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
+
+    <Button
+        android:id="@+id/downloadMultipleFileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/urlEditText"
+        android:layout_margin="20dp"
+        android:text="Download Multiple File"
+        app:layout_constraintTop_toBottomOf="@+id/downloadSingleFileButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
