@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/downloadButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/urlEditText"
         android:layout_marginTop="15dp"
@@ -44,11 +44,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/downloadButton"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

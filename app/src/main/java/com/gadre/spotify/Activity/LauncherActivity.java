@@ -5,14 +5,20 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.gadre.spotify.Adapter.BookmarkAdapter;
+import com.gadre.spotify.Adapter.LauncherActivityAdapter;
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
+
+import java.util.ArrayList;
 
 public class LauncherActivity extends AppCompatActivity {
 
     private ActivityLauncherBinding binding;
     private LoadingDialog loadingDialog;
+    private LauncherActivityAdapter launcherActivityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,12 @@ public class LauncherActivity extends AppCompatActivity {
         // Initialize view binding
         binding = ActivityLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        launcherActivityAdapter =new LauncherActivityAdapter(new ArrayList<>());
+        binding.launcherActivityRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.launcherActivityRecyclerView.setAdapter(launcherActivityAdapter);
+
 
 
         loadingDialog = new LoadingDialog(this);

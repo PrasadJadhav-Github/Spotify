@@ -7,56 +7,59 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivityDownloadManagerBinding;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class DownloadManagerActivity extends AppCompatActivity {
 
     private ActivityDownloadManagerBinding binding;
     private LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityDownloadManagerBinding.inflate(getLayoutInflater());
+        binding = ActivityDownloadManagerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadingDialog = new LoadingDialog(this);
-        downloadButtonListenar();
+        downloadButtonListener();
     }
 
-    private void  downloadButtonListenar(){
+    private void downloadButtonListener() {
         binding.downloadButton.setOnClickListener(view -> {
-                String url = binding.urlEditText.getText().toString();
-                downloadImages("Download images", url);
+            String urls = binding.urlEditText.getText().toString();
+            List<String> urlList = Arrays.asList(urls.split(","));// Arrays.asList() method in Java is used to convert an array into a List
+            for (String url : urlList) {
+                downloadImages(url.trim());
+            }
         });
-
     }
 
-    private  void  downloadImages(String fileName,String imageURL){
+    private void downloadImages(String imageURL) {
         try {
             DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri downloaduri=Uri.parse(imageURL);
+            Uri downloadUri = Uri.parse(imageURL); // Directly parse the URL
+            String fileName = Uri.parse(imageURL).getLastPathSegment(); // Get the last segment as the file name
 
-            DownloadManager.Request request = new DownloadManager.Request(downloaduri);
+            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
                     .setTitle(fileName)
                     .setMimeType("image/jpeg")
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION)
-                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, File.separator+fileName+".jpeg");
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, fileName);
+
             downloadManager.enqueue(request);
 
-            Toast.makeText(this,"Image Download done",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Downloading: " + fileName, Toast.LENGTH_SHORT).show();
 
-        }catch (Exception e){
-            Toast.makeText(this, "Image Downloading Fail", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed to download: " + imageURL, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -71,7 +72,6 @@
         android:layout_height="78dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="17dp"
         android:src="@drawable/video"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlaySong"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -184,7 +184,7 @@
         android:id="@+id/imageViewBookmarkTab"
         android:layout_width="78dp"
         android:layout_height="78dp"
-       android:layout_marginRight="100dp"
+        android:layout_marginRight="100dp"
         android:layout_marginTop="42dp"
         android:src="@drawable/bookmarktab"
         app:layout_constraintEnd_toEndOf="parent"
@@ -247,9 +247,22 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewDownload"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDownload" />
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/fragment_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--    </FrameLayout>-->
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/launcherActivityRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <!-- Uncomment if using a fragment -->
+    <!-- <FrameLayout -->
+    <!--     android:id="@+id/fragment_container" -->
+    <!--     android:layout_width="match_parent" -->
+    <!--     android:layout_height="wrap_content"> -->
+    <!-- </FrameLayout> -->
 </androidx.constraintlayout.widget.ConstraintLayout>
