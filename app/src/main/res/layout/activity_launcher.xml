@@ -247,7 +247,28 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewDownload"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDownload" />
 
+    <ImageView
+        android:id="@+id/imageViewApiCall"
+        android:layout_width="78dp"
+        android:src="@drawable/apicall"
+        android:layout_height="78dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBookmarkTab"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDownload"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBookmarkTab" />
+
     <!-- RecyclerView -->
+    <TextView
+        android:id="@+id/textViewApiCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swyam"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewApiCall"
+        app:layout_constraintStart_toStartOf="@+id/imageViewApiCall"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewApiCall" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/launcherActivityRecyclerView"
         android:layout_width="0dp"

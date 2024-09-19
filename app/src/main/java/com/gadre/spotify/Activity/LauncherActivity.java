@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.gadre.spotify.Adapter.BookmarkAdapter;
 import com.gadre.spotify.Adapter.LauncherActivityAdapter;
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
@@ -102,6 +101,12 @@ public class LauncherActivity extends AppCompatActivity {
                 Intent intent = new Intent(LauncherActivity.this, DownloadManagerActivity.class);
                 startActivity(intent);
                 Toast.makeText(LauncherActivity.this, "Opening  Download Manager ", Toast.LENGTH_SHORT).show();
+            });
+
+            binding.imageViewApiCall.setOnClickListener(view -> {
+                Intent intent = new Intent(LauncherActivity.this, DisplayDataFromSwayamApilActivity.class);
+                startActivity(intent);
+                Toast.makeText(LauncherActivity.this, "Opening  Swyam ", Toast.LENGTH_SHORT).show();
             });
 
             binding.imageViewDateFormatTab.setOnClickListener(view -> {

@@ -1,7 +1,6 @@
 package com.gadre.spotify.OtherClasses;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.gadre.spotify.Api_Implementation.ApiServices;
 import com.gadre.spotify.Api_Implementation.RetrofitClient;
@@ -13,13 +12,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DisplaySpotifyData implements FetchDataInterface {
+public class FetchSpotifyDataFromApi implements FetchDataInterface {
 
     private final DisplayDataInterface displayDataInterface;
     private final ApiServices apiServices;
 
 
-    public DisplaySpotifyData(DisplayDataInterface displayDataInterface) {
+    public FetchSpotifyDataFromApi(DisplayDataInterface displayDataInterface) {
         this.displayDataInterface=displayDataInterface;
         apiServices= RetrofitClient.getSpotifyData();
 
@@ -36,7 +35,6 @@ public class DisplaySpotifyData implements FetchDataInterface {
                     AlbumJSON albumJSON=response.body();
                    displayDataInterface.displayDataOfSpotify(albumJSON);
                 }
-
             }
 
             @Override

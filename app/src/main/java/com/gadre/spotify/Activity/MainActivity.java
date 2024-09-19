@@ -1,18 +1,17 @@
 package com.gadre.spotify.Activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.gadre.spotify.Adapter.AlbumApapter;
+import com.gadre.spotify.Adapter.SpotifyAlbumApapter;
 import com.gadre.spotify.Interface.DisplayDataInterface;
 import com.gadre.spotify.ModelClass.AlbumJSON;
 import com.gadre.spotify.ModelClass.AlbumData;
 import com.gadre.spotify.ModelClass.Item;
-import com.gadre.spotify.OtherClasses.DisplaySpotifyData;
+import com.gadre.spotify.OtherClasses.FetchSpotifyDataFromApi;
 import com.gadre.spotify.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements DisplayDataInterface {
 
     private ActivityMainBinding binding;
-    private AlbumApapter albumAdapter;
+    private SpotifyAlbumApapter albumAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +30,12 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
 
         //initialize recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        albumAdapter = new AlbumApapter(new ArrayList<>());
+        albumAdapter = new SpotifyAlbumApapter(new ArrayList<>());
         binding.recyclerView.setAdapter(albumAdapter);
 
-        //instance of DisplaySpotifyData holds api data
-        DisplaySpotifyData displaySpotifyData = new DisplaySpotifyData(this);
-        displaySpotifyData.fetchDataFromSpotifyApi();
+        //instance of FetchSpotifyDataFromApi holds api data
+        FetchSpotifyDataFromApi fetchSpotifyDataFromApi = new FetchSpotifyDataFromApi(this);
+        fetchSpotifyDataFromApi.fetchDataFromSpotifyApi();
     }
 
     @Override
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
                     }
                 }
             }
-            albumAdapter = new AlbumApapter(albumDataList);
+            albumAdapter = new SpotifyAlbumApapter(albumDataList);
             binding.recyclerView.setAdapter(albumAdapter);
 
             //set binding to hide the text message when data is display
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements DisplayDataInterf
             binding.recyclerView.setVisibility(View.VISIBLE);
         } else {
             // no data is available
-            albumAdapter = new AlbumApapter(new ArrayList<>());
+            albumAdapter = new SpotifyAlbumApapter(new ArrayList<>());
             binding.recyclerView.setAdapter(albumAdapter);
 
             //set binding if no data is available

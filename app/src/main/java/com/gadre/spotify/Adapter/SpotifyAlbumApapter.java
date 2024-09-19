@@ -17,11 +17,11 @@ import com.gadre.spotify.R;
 
 import java.util.List;
 
-public class AlbumApapter extends RecyclerView.Adapter<AlbumApapter.AlbumViewHolder> {
+public class SpotifyAlbumApapter extends RecyclerView.Adapter<SpotifyAlbumApapter.AlbumViewHolder> {
 
     private final List<AlbumData> albumList;
 
-    public AlbumApapter(List<AlbumData> albumList) {
+    public SpotifyAlbumApapter(List<AlbumData> albumList) {
         this.albumList = albumList;
     }
 
