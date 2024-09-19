@@ -8,9 +8,14 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.gadre.spotify.OtherClasses.LoadingDialog;
 import com.gadre.spotify.R;
+import com.gadre.spotify.WorkerManager.DownloadManagerWorker;
 import com.gadre.spotify.databinding.ActivityDownloadManagerBinding;
 
 import java.io.File;
@@ -95,32 +100,32 @@ public class DownloadManagerActivity extends AppCompatActivity {
     }
 
 
-    private void downloadImagesUsingHttpClient(String imageURL) throws Exception  {
-        new Thread(() ->{
-        try {
-            String fileName = Uri.parse(imageURL).getLastPathSegment();
-            File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName);
+    //use workmanager to handle download process in background
+    private void downloadImagesUsingHttpClient(String imageURL) {
+        Data inputData = new Data.Builder()
+                .putString("IMAGE_URL", imageURL)
+                .build();
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(imageURL).build();
-            Response response = client.newCall(request).execute();
+        OneTimeWorkRequest downloadWorkRequest = new OneTimeWorkRequest.Builder(DownloadManagerWorker.class)
+                .setInputData(inputData)
+                .build();
+
+        WorkManager.getInstance(this).enqueue(downloadWorkRequest);
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(downloadWorkRequest.getId())
+                .observe(this, workInfo -> {
+                    if (workInfo != null && workInfo.getState().isFinished()) {
+                        if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            Toast.makeText(this, "Download Successful: " + imageURL, Toast.LENGTH_SHORT).show();
+                        } else if (workInfo.getState() == WorkInfo.State.FAILED) {
+                            Toast.makeText(this, "Download Failed: " + imageURL, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                });
 
 
-            if (!response.isSuccessful()) {
-                throw new IOException("Failed to download file: " + response);
-            }
+        Toast.makeText(this, "Starting Download: " + imageURL, Toast.LENGTH_SHORT).show();
 
-            FileOutputStream fos = new FileOutputStream(outputFile);
-            fos.write(response.body().bytes());
-            fos.close();
-
-
-            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "File downloaded: " + fileName, Toast.LENGTH_SHORT).show());
-        } catch (Exception e) {
-            e.printStackTrace();
-            runOnUiThread(() -> Toast.makeText(DownloadManagerActivity.this, "Failed to download!!! : " +"check out link "+ imageURL, Toast.LENGTH_SHORT).show());
-        }
-        }).start();
 
     }
 
