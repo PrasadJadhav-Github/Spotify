@@ -108,7 +108,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/hours_text_view"
+                android:id="@+id/inHours_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="00:00"
@@ -132,7 +132,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/task1_text_view"
+                android:id="@+id/outHour_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="00:00"

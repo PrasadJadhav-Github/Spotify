@@ -26,6 +26,7 @@ public class DisplayDataFromSwayamApilActivity extends AppCompatActivity impleme
     private FetchDataForSwayamApp fetchDataForSwayamApp;
     private SwayamApiServices swayamApiServices;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +38,7 @@ public class DisplayDataFromSwayamApilActivity extends AppCompatActivity impleme
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-        fetchDataForSwayamApp =new FetchDataForSwayamApp(this);
+        fetchDataForSwayamApp = new FetchDataForSwayamApp(this);
 
         binding.calenderButton.setOnClickListener(view -> {
             // Get the current date
@@ -68,6 +68,8 @@ public class DisplayDataFromSwayamApilActivity extends AppCompatActivity impleme
     @Override
     public void DisplayDetailsFromSwayamApi(SwayamResponseDataClass swayamResponseDataClass) {
         List<InOutDataClass> inOutDataClasses = swayamResponseDataClass.getListOfInOut();
+        binding.inHoursTextView.setText(swayamResponseDataClass.getTotalInHours());
+        binding.outHourTextView.setText(swayamResponseDataClass.getTotalOutHours());
         swayamApiAdapter = new SwayamApiAdapter(inOutDataClasses);
         recyclerView.setAdapter(swayamApiAdapter);
     }

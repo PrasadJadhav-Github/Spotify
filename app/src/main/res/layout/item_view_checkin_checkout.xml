@@ -27,20 +27,27 @@
 
                 <TextView
                     android:id="@+id/itemview_checkin_textview"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="25dp"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Check In" />
 
                 <TextView
                     android:id="@+id/itemview_checkout_textview"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="25dp"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Check Out" />
-                <!--                <TextView-->
-                <!--                    android:id="@+id/itemview_reason_textview"-->
-                <!--                    android:layout_width="120dp"-->
-                <!--                    android:layout_height="25dp"-->
-                <!--                    android:text="Reason" />-->
+
+                <TextView
+                    android:id="@+id/itemview_reason_textview"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Reason" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,22 +57,29 @@
 
                 <TextView
                     android:id="@+id/itemview_checkin_Am_textview"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="25dp"
+                    android:textSize="17dp"
                     android:text="00:00 AM"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:textColor="#00af65" />
 
                 <TextView
                     android:id="@+id/itemview_checkout_PM_textview"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="25dp"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="00:00 PM"
                     android:textColor="#ef0000" />
-                <!--                <TextView-->
-                <!--                    android:id="@+id/itemview_Status"-->
-                <!--                    android:layout_width="120dp"-->
-                <!--                    android:layout_height="25dp"-->
-                <!--                    android:text="Check In" />-->
+
+                <TextView
+                    android:id="@+id/itemview_Status"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="Check In" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,16 +87,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/itemview_checkin_Date_textview"
-                                    android:layout_width="160dp"
-                                    android:layout_height="25dp"
-                                    android:text="Date" />
-                                <TextView
-                                    android:id="@+id/itemview_checkout_Date_textview"
-                                    android:layout_width="160dp"
-                                    android:layout_height="25dp"
-                                    android:text="Date" />
+                <TextView
+                    android:id="@+id/itemview_checkin_Date_textview"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:textSize="11dp"
+                    android:text="Date" />
+
+                <TextView
+                    android:id="@+id/itemview_checkout_Date_textview"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:textSize="11dp"
+                    android:text="Date" />
             </LinearLayout>
 
         </LinearLayout>
