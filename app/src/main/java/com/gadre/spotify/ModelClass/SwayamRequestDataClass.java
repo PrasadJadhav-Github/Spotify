@@ -3,24 +3,17 @@ package com.gadre.spotify.ModelClass;
 import com.google.gson.annotations.SerializedName;
 
 public class SwayamRequestDataClass {
-    @SerializedName("tag")
+    @SerializedName("sTag")
     String tag;
-    @SerializedName("extraInfo")
+    @SerializedName("sExtraInfo")
     String extraInfo;
     @SerializedName("dtRequested")
     String dtRequested;
-    @SerializedName("clientType")
-    int clientType;
+    @SerializedName("jClientType")
+    int clientType=2;
     @SerializedName("suidSession")
-    String suidSession;
+    String suidSession="335c9560fbc36766ced47bb04e28a737a1f90a8c4ce4c2aa963b1051bb33aecf";
 
-    public SwayamRequestDataClass(String tag, String extraInfo, String dtRequested, int clientType, String suidSession) {
-        this.tag = tag;
-        this.extraInfo = extraInfo;
-        this.dtRequested = dtRequested;
-        this.clientType = clientType;
-        this.suidSession = suidSession;
-    }
 
     public String getTag() {
         return tag;

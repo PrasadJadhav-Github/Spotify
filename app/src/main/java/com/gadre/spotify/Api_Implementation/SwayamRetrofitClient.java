@@ -5,14 +5,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SwayamRetrofitClient {
 
-    private static ApiServices apiService = null;
-    public static ApiServices getSwayamData() {
+    private static SwayamApiServices apiService = null;
+    public static SwayamApiServices getSwayamData() {
         if (apiService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://test.swayamess.in/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            apiService=retrofit.create(ApiServices.class);
+            apiService=retrofit.create(SwayamApiServices.class);
         }
         return apiService;
     }

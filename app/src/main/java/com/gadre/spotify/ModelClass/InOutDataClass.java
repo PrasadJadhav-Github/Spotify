@@ -3,19 +3,19 @@ package com.gadre.spotify.ModelClass;
 import com.google.gson.annotations.SerializedName;
 
 public class InOutDataClass {
-    @SerializedName("inTime")
+    @SerializedName("sInTime")
     String inTime;
-    @SerializedName("outTime")
+    @SerializedName("sOutTime")
     String outTime;
     @SerializedName("suidOut")
     String suidOut;
-    @SerializedName("reason")
+    @SerializedName("jReason")
     int reason;
     @SerializedName("sReason")
     String sReason;
-    @SerializedName("approvalStatus")
+    @SerializedName("jApprovalStatus")
     int approvalStatus;
-    @SerializedName("rejectedReason")
+    @SerializedName("sRejectedReason")
     String rejectedReason;
 
     public InOutDataClass(String inTime, String outTime, String suidOut, int reason, String sReason, int approvalStatus, String rejectedReason) {

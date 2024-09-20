@@ -5,12 +5,23 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class SwayamResponseDataClass {
-    @SerializedName("listOfInOut")
+    @SerializedName("liTodaysCheckInCheckOut")
     List<InOutDataClass> listOfInOut;
-    @SerializedName("totalOutHours")
+    @SerializedName("sTotalOutHours")
     String totalOutHours;
-    @SerializedName("totalInHours")
+    @SerializedName("sTotalInHours")
     String totalInHours;
+
+    public ApiError getApiError() {
+        return apiError;
+    }
+
+    public void setApiError(ApiError apiError) {
+        this.apiError = apiError;
+    }
+
+    @SerializedName( "apiError")
+    ApiError apiError;
 
     public SwayamResponseDataClass(List<InOutDataClass> listOfInOut, String totalOutHours, String totalInHours) {
         this.listOfInOut = listOfInOut;
