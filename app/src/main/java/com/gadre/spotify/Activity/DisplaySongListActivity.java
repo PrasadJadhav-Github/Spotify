@@ -1,7 +1,6 @@
 package com.gadre.spotify.Activity;
 
 import android.content.Intent;
-import android.icu.text.Transliterator;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +15,7 @@ import com.gadre.spotify.databinding.ActivityPlaySongBinding;
 
 import java.util.List;
 
-public class PlaySongActivity extends AppCompatActivity implements SongAdapter.OnSongClickListener {
+public class DisplaySongListActivity extends AppCompatActivity implements SongAdapter.OnSongClickListener {
 
     private ActivityPlaySongBinding binding;
     private RecyclerView recyclerView;
@@ -44,7 +43,7 @@ public class PlaySongActivity extends AppCompatActivity implements SongAdapter.O
 
     @Override
     public void onSongClick(int position) {
-        Intent intent = new Intent(PlaySongActivity.this, MediaPlayerActivity.class);
+        Intent intent = new Intent(DisplaySongListActivity.this, MediaPlayerActivity.class);
         intent.putExtra("SONG_POSITION", position);
         startActivity(intent);
     }

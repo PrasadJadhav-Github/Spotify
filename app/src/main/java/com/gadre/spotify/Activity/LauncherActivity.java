@@ -43,7 +43,7 @@ public class LauncherActivity extends AppCompatActivity {
             });
 
             binding.imageViewPlaySong.setOnClickListener(v -> {
-                Intent intent = new Intent(LauncherActivity.this, PlaySongActivity.class);
+                Intent intent = new Intent(LauncherActivity.this, DisplaySongListActivity.class);
                 startActivity(intent);
                 Toast.makeText(LauncherActivity.this, "Opening  Songs ", Toast.LENGTH_SHORT).show();
             });

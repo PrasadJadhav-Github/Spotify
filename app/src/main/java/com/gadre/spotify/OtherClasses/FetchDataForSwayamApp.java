@@ -2,6 +2,8 @@ package com.gadre.spotify.OtherClasses;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.gadre.spotify.Api_Implementation.SwayamApiServices;
 import com.gadre.spotify.Api_Implementation.SwayamRetrofitClient;
 import com.gadre.spotify.Interface.DisplaySwayamInterface;
@@ -45,16 +47,18 @@ public class FetchDataForSwayamApp implements FetchSwayamInterface {
         Call<SwayamResponseDataClass> call = swayamApiServices.getAllInfoFromSwayamApi(swayamRequestDataClass);
         call.enqueue(new Callback<SwayamResponseDataClass>() {
             @Override
-            public void onResponse(Call<SwayamResponseDataClass> call, Response<SwayamResponseDataClass> response) {
+            public void onResponse(@NonNull Call<SwayamResponseDataClass> call, Response<SwayamResponseDataClass> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     SwayamResponseDataClass swayamResponseDataClass = response.body();
-                    displaySwayamInterface.DisplayDetailsFromSwayamApi(swayamResponseDataClass);
+                    displaySwayamInterface.displayDetailsFromSwayamApi(swayamResponseDataClass);
+                    displaySwayamInterface.displayMessage("API Respond Successfully");
                     Log.d("API Response", "Success: " + swayamResponseDataClass);
+
                 } else {
                     Log.d("API Response", "Failed: " + response.code());
+                    displaySwayamInterface.displayMessage("API Reponse Fail");
                 }
             }
-
             @Override
             public void onFailure(Call<SwayamResponseDataClass> call, Throwable t) {
                 Log.e("Swayam", "API call failed: " + t.getMessage());

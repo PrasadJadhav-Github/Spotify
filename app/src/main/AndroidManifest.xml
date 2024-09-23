@@ -55,7 +55,7 @@
             android:name=".Activity.MediaPlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.PlaySongActivity"
+            android:name=".Activity.DisplaySongListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.MainActivity"

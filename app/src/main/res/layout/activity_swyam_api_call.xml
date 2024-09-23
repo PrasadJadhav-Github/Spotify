@@ -13,13 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#ef0000"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:navigationIcon="@drawable/arrow_back"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Today's Check In - Check Out"
         app:titleTextColor="@color/white"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -30,6 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -38,10 +35,10 @@
             android:id="@+id/calenderButton"
             android:layout_width="120dp"
             android:layout_height="40dp"
-            android:text="select Date"
-            android:textSize="12dp"
+            android:text="Select Date"
+            android:textSize="12.6dp"
             android:textColor="@color/black"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/baseline_calendar_month_24"
             android:drawablePadding="8dp"
@@ -88,6 +85,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:layout_margin="3.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -104,6 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="IN"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
@@ -112,8 +112,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="00:00"
+                android:textAlignment="center"
                 android:textColor="#008631"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,12 +123,14 @@
             android:orientation="vertical"
             android:background="@drawable/outhours_cardviewround"
             android:padding="16dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="22dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="OUT"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
@@ -136,8 +139,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="00:00"
+                android:fontFamily=""
+                android:textAlignment="center"
                 android:textColor="#c30010"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -146,22 +151,25 @@
             android:orientation="vertical"
             android:background="@drawable/totalhours_cardviewround"
             android:padding="16dp"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="0dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TOTAL"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/task2_text_view"
+                android:id="@+id/totalhours_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="00:00"
+                android:textAlignment="center"
                 android:textColor="#5767df"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
     </LinearLayout>

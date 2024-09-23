@@ -1,6 +1,5 @@
 package com.gadre.spotify.Adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gadre.spotify.Activity.MediaPlayerActivity;
-import com.gadre.spotify.Activity.PlaySongActivity;
-import com.gadre.spotify.Activity.ShowBookmarkActivity;
 import com.gadre.spotify.R;
 import com.gadre.spotify.RoomDatabase_Entity.BookmarkEntity;
 
