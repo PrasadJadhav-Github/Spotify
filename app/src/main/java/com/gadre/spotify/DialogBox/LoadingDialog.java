@@ -1,4 +1,4 @@
-package com.gadre.spotify.OtherClasses;
+package com.gadre.spotify.DialogBox;
 
 import android.app.Activity;
 import android.app.AlertDialog;

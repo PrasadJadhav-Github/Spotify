@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gadre.spotify.Adapter.LauncherActivityAdapter;
-import com.gadre.spotify.OtherClasses.LoadingDialog;
+import com.gadre.spotify.DialogBox.LoadingDialog;
 import com.gadre.spotify.databinding.ActivityLauncherBinding;
 
 import java.util.ArrayList;

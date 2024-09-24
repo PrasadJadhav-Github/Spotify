@@ -7,7 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.gadre.spotify.OtherClasses.LoadingDialog;
+import com.gadre.spotify.DialogBox.LoadingDialog;
 import com.gadre.spotify.R;
 import com.gadre.spotify.databinding.ActivitySellsDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

@@ -5,6 +5,7 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,18 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gadre.spotify.Adapter.SwayamApiAdapter;
-import com.gadre.spotify.Api_Implementation.SwayamApiServices;
 import com.gadre.spotify.Interface.DisplaySwayamInterface;
 import com.gadre.spotify.ModelClass.InOutDataClass;
 import com.gadre.spotify.ModelClass.SwayamResponseDataClass;
 import com.gadre.spotify.OtherClasses.FetchDataForSwayamApp;
-import com.gadre.spotify.OtherClasses.LoadingDialog;
-import com.gadre.spotify.R;
+import com.gadre.spotify.DialogBox.LoadingDialog;
 import com.gadre.spotify.databinding.ActivitySwyamApiCallBinding;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -126,7 +124,7 @@ public class DisplayDataFromSwayamApilActivity extends AppCompatActivity impleme
 
     @Override
     public void displayMessage(String messages) {
-
+        Toast.makeText(this, "Api Fetch Successfully", Toast.LENGTH_SHORT).show();
     }
 
 
